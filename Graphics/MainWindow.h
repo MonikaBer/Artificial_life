@@ -21,7 +21,8 @@ class MainWindow {
         ~MainWindow();
     public:
         void clearScreen();
-        void createWeb();
+        void createWeb(int areasize);
+        void drawPlant(int x, int y, int areasize);
         void drawPredator(int x, int y);
-        void update();   
+        void update();
 };

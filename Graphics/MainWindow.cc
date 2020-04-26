@@ -51,13 +51,20 @@ void MainWindow::clearScreen()
 	SDL_RenderClear( renderer );	
 }
 
-void MainWindow::createWeb()
+void MainWindow::createWeb(int areasize)
 {
 	SDL_SetRenderDrawColor( renderer, 0xFF, 0x99, 0xCC, 0xFF );	
-	for (int i=1; i<screenheight; i+=5)
+	for (int i=0; i<screenheight; i+=areasize)
 		SDL_RenderDrawLine( renderer, 0, i, screenwidth, i );
-	for (int i=1; i<screenwidth; i+=5)
+	for (int i=0; i<screenwidth; i+=areasize)
 		SDL_RenderDrawLine( renderer, i, 0, i, screenheight );
+}
+
+void MainWindow::drawPlant(int x, int y, int areasize)
+{
+	SDL_Rect plantRect = {x+1, y+1, areasize-1, areasize-1};
+	SDL_SetRenderDrawColor( renderer, 0x00, 0x80, 0x00, 0xFF );		
+	SDL_RenderFillRect( renderer, &plantRect );
 }
 
 void MainWindow::drawPredator(int x, int y)
