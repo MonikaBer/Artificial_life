@@ -26,7 +26,7 @@ int main()
     bool quit = false;
     SDL_Event ev;
 
-    SubjectsFactory factory;
+    SubjectsFactory&factory = SubjectsFactory::getInstance();
 
     vector<Subject*> plantCollection;
     Subject *pom = nullptr;

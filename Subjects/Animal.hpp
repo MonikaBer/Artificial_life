@@ -1,5 +1,7 @@
 //Andrzej Przybylski & Monika Berlinska
 //virtual base class for animals
+#ifndef ANIMAL_H
+#define ANIMAL_H
 #include"Subject.hpp"
 #include<stdio.h>
 
@@ -26,3 +28,4 @@ class Animal : public Subject{
         }
         virtual void eat(Subject &eaten) = 0;
 };
+#endif

@@ -1,5 +1,7 @@
 //Andrzej Przybylski & Monika Berlinska
 //Main window to visualize behaviour of creatures
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 #include<SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
 #include<string>
@@ -19,6 +21,8 @@ class MainWindow {
         int areasize;
         std::string screentitle;
         MainWindow(int w, int h, int area, std::string title);
+        MainWindow(const MainWindow&) = delete;
+        MainWindow& operator=(const MainWindow&) = delete;
         ~MainWindow();
     public:
         void clearScreen();
@@ -28,3 +32,5 @@ class MainWindow {
         void drawPredator(int x, int y);
         void update();
 };
+
+#endif

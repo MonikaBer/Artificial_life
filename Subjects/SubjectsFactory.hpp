@@ -1,5 +1,7 @@
 //Andrzej Przybylski & Monika Berlinska
 //Factory to create new subjects
+#ifndef SUBJECTSFACTORY_H
+#define SUBJECTSFACTORY_H
 #include<stdio.h>
 #include<exception>
 #include <cstdlib>
@@ -10,11 +12,18 @@
 class SubjectsFactory {
     private:
         enum {PREDATOR, HERBIVORE, PLANT};
-    public:
-        SubjectsFactory() 
+        SubjectsFactory()
         {
             srand(time(NULL));
         }
+        SubjectsFactory(const SubjectsFactory&) = delete;
+        SubjectsFactory& operator=(const SubjectsFactory&) = delete;
+    public:
+        static SubjectsFactory& getInstance(){
+            static SubjectsFactory instance;
+            return instance;
+        }
+
         Subject* create(int type, int maxX, int maxY, int areasize)
         {
             std::exception exc;
@@ -40,3 +49,5 @@ class SubjectsFactory {
             return sub;
         }
 };
+
+#endif
