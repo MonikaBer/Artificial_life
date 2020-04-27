@@ -1,8 +1,8 @@
 //Andrzej Przybylski & Monika Berlinska
 //Class for plants
-#include"Subject.h"
+#include"Subject.hpp"
 
 class Plant : public Subject{
     public:
-        Plant(int x, int y) : Subject(x, y, 0) {};
+        Plant(int x, int y) : Subject(x, y) {};
 };

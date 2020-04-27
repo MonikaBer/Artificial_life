@@ -4,7 +4,7 @@
 
 MainWindow* MainWindow::pInstance_ = nullptr;
 
-MainWindow::MainWindow(int w, int h, std::string title)
+MainWindow::MainWindow(int w, int h, int area, std::string title)
 {
     std::exception err;
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -43,6 +43,7 @@ MainWindow::MainWindow(int w, int h, std::string title)
 			//screensurface = SDL_GetWindowSurface( window );
 		}
 	}
+	areasize = area;
 }
 
 void MainWindow::clearScreen()
@@ -60,10 +61,17 @@ void MainWindow::createWeb(int areasize)
 		SDL_RenderDrawLine( renderer, i, 0, i, screenheight );
 }
 
-void MainWindow::drawPlant(int x, int y, int areasize)
+void MainWindow::drawPlant(int x, int y)
 {
 	SDL_Rect plantRect = {x+1, y+1, areasize-1, areasize-1};
 	SDL_SetRenderDrawColor( renderer, 0x00, 0x80, 0x00, 0xFF );		
+	SDL_RenderFillRect( renderer, &plantRect );
+}
+
+void MainWindow::drawHerbivore(int x, int y)
+{
+	SDL_Rect plantRect = {x+1, y+1, areasize-1, areasize-1};
+	SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );		
 	SDL_RenderFillRect( renderer, &plantRect );
 }
 
@@ -93,9 +101,9 @@ MainWindow::~MainWindow()
 	SDL_Quit();
 }
 
-MainWindow* MainWindow::getInstance(int w, int h, std::string title)
+MainWindow* MainWindow::getInstance(int w, int h, int area, std::string title)
 {
 	if(!pInstance_)
-		pInstance_ = new MainWindow(w, h, title);
+		pInstance_ = new MainWindow(w, h, area, title);
 	return pInstance_;
 }

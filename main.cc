@@ -11,12 +11,13 @@ static const int WINDOWHEIGHT = 480;
 
 //starting number of subjects:
 static const int NUMBEROFPLANTS = 40;
+static const int NUMBEROFHERBIVORE = 10;
 
 int main()
 {
     MainWindow *mainwindow;
     try{
-        mainwindow = mainwindow->getInstance(WINDOWWIDTH, WINDOWHEIGHT, "Artificial Life");
+        mainwindow = mainwindow->getInstance(WINDOWWIDTH, WINDOWHEIGHT, AREASIZE, "Artificial Life");
     }catch(std::exception &e){
         printf("Problem with creating a window");
         return 0;
@@ -26,15 +27,20 @@ int main()
     SDL_Event ev;
 
     SubjectsFactory factory;
-    //kod testowy do usunięcia:
-    vector<Subject*> subCollection;
+
+    vector<Subject*> plantCollection;
     Subject *pom = nullptr;
     for(int i=1; i<NUMBEROFPLANTS; ++i)
     {
         pom = factory.create(2, WINDOWWIDTH/AREASIZE, WINDOWHEIGHT/AREASIZE, AREASIZE);
-        subCollection.push_back(pom);
+        plantCollection.push_back(pom);
     }
-    //dotąd usunąć - razem z deklaracją tablicy na górze
+    vector<Subject*> herbivoreCollection;
+    for (int i=1; i<NUMBEROFHERBIVORE; ++i)
+    {
+        pom = factory.create(1, WINDOWWIDTH/AREASIZE, WINDOWHEIGHT/AREASIZE, AREASIZE);
+        herbivoreCollection.push_back(pom);
+    }
 
     while(!quit)
     {
@@ -49,8 +55,11 @@ int main()
         mainwindow->clearScreen();
         mainwindow->createWeb(AREASIZE);
         vector<Subject*>::iterator ite;
-        for (ite = subCollection.begin(); ite != subCollection.end(); ++ite){
-            mainwindow->drawPlant((*ite)->getXPosition(), (*ite)->getYPosition(), AREASIZE);
+        for (ite = plantCollection.begin(); ite != plantCollection.end(); ++ite){
+            mainwindow->drawPlant((*ite)->getXPosition(), (*ite)->getYPosition());
+        }
+        for (ite = herbivoreCollection.begin(); ite != herbivoreCollection.end(); ++ite){
+            mainwindow->drawHerbivore((*ite)->getXPosition(), (*ite)->getYPosition());
         }
         mainwindow->update();
         SDL_Delay(100);

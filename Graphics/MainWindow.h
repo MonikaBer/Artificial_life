@@ -8,7 +8,7 @@
 
 class MainWindow {
     public:
-        static MainWindow* getInstance(int w, int h, std::string title);
+        static MainWindow* getInstance(int w, int h, int area, std::string title);
     private:
         static MainWindow* pInstance_;
         SDL_Window* window = nullptr;
@@ -16,13 +16,15 @@ class MainWindow {
         SDL_Renderer* renderer = nullptr;
         int screenwidth;
         int screenheight;
+        int areasize;
         std::string screentitle;
-        MainWindow(int w, int h, std::string title);
+        MainWindow(int w, int h, int area, std::string title);
         ~MainWindow();
     public:
         void clearScreen();
         void createWeb(int areasize);
-        void drawPlant(int x, int y, int areasize);
+        void drawPlant(int x, int y);
+        void drawHerbivore(int x, int y);
         void drawPredator(int x, int y);
         void update();
 };

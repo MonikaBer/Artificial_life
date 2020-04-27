@@ -4,7 +4,8 @@
 #include<exception>
 #include <cstdlib>
 #include <ctime>
-#include "Plant.h"
+#include "Plant.hpp"
+#include "Herbivore.h"
 
 class SubjectsFactory {
     private:
@@ -27,7 +28,7 @@ class SubjectsFactory {
                     printf("Create a predator");
                     break;
                 case HERBIVORE: 
-                    printf("Create a herbivore");
+                    sub = new Herbivore(x, y);
                     break;
                 case PLANT:
                     sub = new Plant(x,y);
