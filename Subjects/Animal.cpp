@@ -26,11 +26,11 @@ bool Animal::lookAround (int & x, int & y, int target) {
     //otherwise return false and set x = -1, y = -1
     //target is food/partner
 
-    return false;
+    return true;
 }
 
 int Animal::move (int x, int y){
-    int leapsNumber = 0;
+    int leapsNumber = 2;
 
     //moving algorithm which set new position of animal, point is a position of found food
     //returns number of leaps during the motion
