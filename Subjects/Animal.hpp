@@ -8,24 +8,40 @@
 
 class Animal : public Subject {
     private:
-        //view range in represented by ellipse that's why we need major and minor value
-        int majorseeing;
-        int minorseeing; 
-        int direction;    //0 - N, 1 - NE, 2 - E, 3 - SE, 4 - S, 5 - SW, 6 - W, 7 - NW
-        int energy;
-        int fulness;
-        int velocity;
+        //variables which depend on time
+        int energy;            //one unit of energy will being lost after each leap
+        int fullness;      
+        int lifeTime;          //number of motions done
+        
+        //variables which does not depend on time
+        int velocity;        //number of leaps per one motion
+        int digestionRate;   //amount of fullness which is lost per each motion
         int maxEnergy;
         int maxFulness;
-        int maxVelocity;
+       
+        //user settings
+        int maxLifeTime;       //max number of motions
+        int viewSize;          //field of view is a square and viewSize is its side
+        //end of user settings
 
     public:
-        Animal(int x, int y) : Subject(x, y) {}
+        Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting);
         virtual ~Animal(){}
         
-        void move();
-        void lookAround();
-        void setDirection(int dir);
+        int move(int x, int y);
+        bool lookAround(int & x, int & y, int);
+        void updateParameters(int leaps);
+        void sleep();
+        void reproduce();
+        int getEnergy(); 
+        int getFullness(); 
+        int getLifeTime();
+        int getVelocity();
+        int getDigestionRate();
+        int getMaxEnergy();
+        int getMaxFulness();
+        int getMaxLifeTime();
+        int getViewSize();
 
         virtual void eat(Subject &eaten) = 0;
 };

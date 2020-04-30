@@ -9,9 +9,13 @@ static const int AREA_SIZE = 5;
 static const int WINDOW_WIDTH = 640;
 static const int WINDOW_HEIGHT = 480;
 
+static const int REPRODUCTION_FREQUENCY = 50;       //break between reproduction periods    
+
 //starting number of subjects:
-static const int NUMBER_OF_PLANTS = 40;
+static const int NUMBER_OF_TYPICAL_PLANTS = 40;
 static const int NUMBER_OF_HERBIVORES = 10;
+static const int MAX_LIFE_TIME = 250;
+static const int VIEW_SIZE = 100;
 
 int main()
 {
@@ -30,15 +34,15 @@ int main()
 
     vector<Subject*> plantCollection;
     Subject *pom = nullptr;
-    for (int i = 1; i < NUMBER_OF_PLANTS; ++i)
+    for (int i = 1; i < NUMBER_OF_TYPICAL_PLANTS; ++i)
     {
-        pom = factory.create(2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE);
+        pom = factory.create(2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
         plantCollection.push_back(pom);
     }
     vector<Subject*> herbivoreCollection;
     for (int i = 1; i < NUMBER_OF_HERBIVORES; ++i)
     {
-        pom = factory.create(1, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE);
+        pom = factory.create(1, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
         herbivoreCollection.push_back(pom);
     }
 

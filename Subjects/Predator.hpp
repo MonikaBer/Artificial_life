@@ -7,7 +7,7 @@
 class Predator : public Animal {
     public:
         virtual void eat(Subject &eaten);
-        Predator(int x, int y);
+        Predator(int x, int y, int maxLifeTimeSetting, int viewSizeSetting);
         ~Predator() {}
 };
 
