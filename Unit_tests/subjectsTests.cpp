@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE( testSubjectConstructor )
     tSub4 = nullptr;
 }
 
-BOOST_AUTO_TEST_CASE( testMoving )
+BOOST_AUTO_TEST_CASE( testAnimalMove )
 {
     int x(40), y(40), maxLifeTime(250), viewSize(100);
     Herbivore *tSub1 = new Herbivore(x, y, maxLifeTime, viewSize);
@@ -43,4 +43,34 @@ BOOST_AUTO_TEST_CASE( testMoving )
 
     delete tSub1;
     tSub1 = nullptr;
+}
+
+BOOST_AUTO_TEST_CASE( testAnimalSleep )
+{
+
+}
+
+BOOST_AUTO_TEST_CASE( testAnimalReproduce )
+{
+
+}
+
+BOOST_AUTO_TEST_CASE( testAnimalLookAround )
+{
+
+}
+
+BOOST_AUTO_TEST_CASE( testUpdateParameters )
+{
+
+}
+
+BOOST_AUTO_TEST_CASE( testHerbivoreEat )
+{
+
+}
+
+BOOST_AUTO_TEST_CASE( testPredatorEat )
+{
+
 }
