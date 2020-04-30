@@ -1,5 +1,5 @@
 //Andrzej Przybylski & Monika Berlinska
-//Class for plants
+//base class representing plants
 #ifndef PLANT_HPP
 #define PLANT_HPP
 
@@ -7,10 +7,11 @@
 
 class Plant : public Subject {
     private:
-        double caloricity;      //1.0 - for SuperPlant, 0.25 - for TypicalPlant
+        double caloricity;      //1.0 for SuperPlant, 0.25 for TypicalPlant
 
     public:
-        Plant(int x, int y) : Subject(x, y) {};
+        Plant(int x, int y) : Subject(x, y) {}
+        void setCaloricity(double cal);
 };
 
 #endif

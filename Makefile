@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp Graphics/MainWindow.cpp Subjects/Subject.hpp Subjects/Plant.hpp Subjects/Animal.hpp Subjects/Herbivore.cpp Subjects/Predator.cpp
+OBJS = main.cpp Graphics/MainWindow.cpp Subjects/Plant.cpp Subjects/Animal.cpp Subjects/Herbivore.cpp Subjects/Predator.cpp 
 
 #CC specifies which compiler we're using
 CC = g++
@@ -17,3 +17,6 @@ OBJ_NAME = a.out
 #This is the target that compiles our executable
 all : $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+
+clean:
+	rm $(OBJ_NAME)
