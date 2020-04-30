@@ -13,6 +13,7 @@ class Subject {
             xposition = x;
             yposition = y;
         }
+        virtual ~Subject(){};
         int getXPosition()
         {
             return xposition;

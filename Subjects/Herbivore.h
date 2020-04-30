@@ -6,8 +6,9 @@
 
 class Herbivore : public Animal {
     public:
-        virtual void eat(Subject &eaten);
+        virtual void eat(Subject &eaten){};
         Herbivore(int x, int y) : Animal(x, y) {};
+        ~Herbivore(){};
 };
 
 #endif
