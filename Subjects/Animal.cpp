@@ -6,7 +6,7 @@
 using namespace std;
 
 
-Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
+Animal::Animal (int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
     srand(time(NULL));
 
     maxEnergy = (std::rand() % 101) + 50;      //rand from 50 to 150
@@ -21,7 +21,7 @@ Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subj
     viewSize = viewSizeSetting;          
 }
 
-bool Animal::lookAround(int & x, int & y, int target) {
+bool Animal::lookAround (int & x, int & y, int target) {
     //look for food/partner in the field of view, set position of food/partner and return true if success
     //otherwise return false and set x = -1, y = -1
     //target is food/partner
@@ -29,7 +29,7 @@ bool Animal::lookAround(int & x, int & y, int target) {
     return false;
 }
 
-int Animal::move(int x, int y){
+int Animal::move (int x, int y){
     int leapsNumber = 0;
 
     //moving algorithm which set new position of animal, point is a position of found food
@@ -38,7 +38,7 @@ int Animal::move(int x, int y){
     return leapsNumber;
 }
 
-void Animal::updateParameters(int leapsNumber) {
+void Animal::updateParameters (int leapsNumber) {
     //update energy, fullness, lifeTime
 }
 
