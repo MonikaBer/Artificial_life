@@ -19,7 +19,8 @@ BOOST_AUTO_TEST_CASE( testSubjectConstructor )
     tSub2 = nullptr;
 
     x = 1, y = -1;
-    Subject *tSub3 = new Herbivore(x, y);
+    int lT = 30, vS = 5;
+    Subject *tSub3 = new Herbivore(x, y, lT, vS);
     BOOST_CHECK(tSub3->getXPosition() == x && tSub3->getYPosition() == y);
     delete tSub3;
     tSub3 = nullptr;
@@ -34,11 +35,10 @@ BOOST_AUTO_TEST_CASE( testSubjectConstructor )
 
 BOOST_AUTO_TEST_CASE( testMoving )
 {
-    int x(40), y(40);
-    Herbivore *tSub1 = new Herbivore(x, y);
-    tSub1->setDirection(2);
-    tSub1->move();
-    BOOST_CHECK(tSub1->getXPosition()!=x && tSub1->getYPosition()!=y);
+    int x(40), y(40), dx(2), dy(3), lT(30), vS(5);
+    Herbivore *tSub1 = new Herbivore(x, y, lT, vS);
+    tSub1->move(dx, dy);
+    BOOST_CHECK(tSub1->getXPosition()==x+dx && tSub1->getYPosition()==y+dy);
     delete tSub1;
     tSub1 = nullptr;
 }
