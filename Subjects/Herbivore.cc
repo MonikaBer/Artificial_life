@@ -1,13 +1,13 @@
 //Andrzej Przybylski & Monika Berlinska
 //class representing herbivore animals
-#include"Herbivore.h"
-/*
-Herbivore::Herbivore()
-{
-    printf("Constructor of Herbivore");
-}*/
+#include"Herbivore.hpp"
 
-void Herbivore::eat(Subject &eaten)
-{
+
+Herbivore::Herbivore(int x, int y) : Animal(x, y) {
+    
+}
+
+void Herbivore::eat(Subject &eaten) {
+    
     printf("eating virtual fun");
 }

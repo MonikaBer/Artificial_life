@@ -1,40 +1,33 @@
 //Andrzej Przybylski & Monika Berlinska
 //virtual base class for animals
-#ifndef ANIMAL_H
-#define ANIMAL_H
-#include"Subject.hpp"
-#include<stdio.h>
-#include<exception>
+#ifndef ANIMAL_HPP
+#define ANIMAL_HPP
+#include "Subject.hpp"
+#include <stdio.h>
+#include <exception>
 
-class Animal : public Subject{
+class Animal : public Subject {
     private:
-        int velocity;
         //view range in represented by ellipse that's why we need major and minor value
         int majorseeing;
-        int minorseeing;
-        //it would be simple to use 4 direction up, down, right and left 
-        int direction;
+        int minorseeing; 
+        int direction;    //0 - N, 1 - NE, 2 - E, 3 - SE, 4 - S, 5 - SW, 6 - W, 7 - NW
         int energy;
         int fulness;
+        int velocity;
+        int maxEnergy;
+        int maxFulness;
+        int maxVelocity;
 
     public:
-        Animal(int x, int y) : Subject(x, y){};
-        virtual ~Animal(){};
-        void move()
-        {
-            printf("moving algorithm");
-        }
-        void lookAround()
-        {
-            printf("Checking if something is in seeing area");
-        }
-        void setDirection(int dir)
-        {
-            std::exception ex;
-            if(dir<1 || dir>4)
-                throw ex;
-            direction = dir;
-        }
+        Animal(int x, int y) : Subject(x, y) {}
+        virtual ~Animal(){}
+        
+        void move();
+        void lookAround();
+        void setDirection(int dir);
+
         virtual void eat(Subject &eaten) = 0;
 };
+
 #endif

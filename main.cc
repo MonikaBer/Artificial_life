@@ -1,24 +1,24 @@
-#include<iostream>
-#include<vector>
-#include"Graphics/MainWindow.h"
-#include"Subjects/SubjectsFactory.hpp"
+#include <iostream>
+#include <vector>
+#include "Graphics/MainWindow.h"
+#include "Subjects/SubjectsFactory.hpp"
 
 using namespace std;
 
-static const int AREASIZE = 5;
-static const int WINDOWWIDTH = 640;
-static const int WINDOWHEIGHT = 480;
+static const int AREA_SIZE = 5;
+static const int WINDOW_WIDTH = 640;
+static const int WINDOW_HEIGHT = 480;
 
 //starting number of subjects:
-static const int NUMBEROFPLANTS = 40;
-static const int NUMBEROFHERBIVORE = 10;
+static const int NUMBER_OF_PLANTS = 40;
+static const int NUMBER_OF_HERBIVORES = 10;
 
 int main()
 {
-    MainWindow *mainwindow;
-    try{
-        mainwindow = mainwindow->getInstance(WINDOWWIDTH, WINDOWHEIGHT, AREASIZE, "Artificial Life");
-    }catch(std::exception &e){
+    MainWindow *mainWindow;
+    try {
+        mainWindow = mainWindow->getInstance(WINDOW_WIDTH, WINDOW_HEIGHT, AREA_SIZE, "Artificial Life");
+    } catch (std::exception &e) {
         printf("Problem with creating a window");
         return 0;
     }
@@ -30,15 +30,15 @@ int main()
 
     vector<Subject*> plantCollection;
     Subject *pom = nullptr;
-    for(int i=1; i<NUMBEROFPLANTS; ++i)
+    for (int i = 1; i < NUMBER_OF_PLANTS; ++i)
     {
-        pom = factory.create(2, WINDOWWIDTH/AREASIZE, WINDOWHEIGHT/AREASIZE, AREASIZE);
+        pom = factory.create(2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE);
         plantCollection.push_back(pom);
     }
     vector<Subject*> herbivoreCollection;
-    for (int i=1; i<NUMBEROFHERBIVORE; ++i)
+    for (int i = 1; i < NUMBER_OF_HERBIVORES; ++i)
     {
-        pom = factory.create(1, WINDOWWIDTH/AREASIZE, WINDOWHEIGHT/AREASIZE, AREASIZE);
+        pom = factory.create(1, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE);
         herbivoreCollection.push_back(pom);
     }
 
@@ -52,16 +52,16 @@ int main()
 				quit = true;
 			}
 		}
-        mainwindow->clearScreen();
-        mainwindow->createWeb(AREASIZE);
+        mainWindow->clearScreen();
+        mainWindow->createWeb(AREA_SIZE);
         vector<Subject*>::iterator ite;
-        for (ite = plantCollection.begin(); ite != plantCollection.end(); ++ite){
-            mainwindow->drawPlant((*ite)->getXPosition(), (*ite)->getYPosition());
+        for (ite = plantCollection.begin(); ite != plantCollection.end(); ++ite) {
+            mainWindow->drawPlant((*ite)->getXPosition(), (*ite)->getYPosition());
         }
-        for (ite = herbivoreCollection.begin(); ite != herbivoreCollection.end(); ++ite){
-            mainwindow->drawHerbivore((*ite)->getXPosition(), (*ite)->getYPosition());
+        for (ite = herbivoreCollection.begin(); ite != herbivoreCollection.end(); ++ite) { 
+            mainWindow->drawHerbivore((*ite)->getXPosition(), (*ite)->getYPosition());
         }
-        mainwindow->update();
+        mainWindow->update();
         SDL_Delay(100);
     }
     return 0;

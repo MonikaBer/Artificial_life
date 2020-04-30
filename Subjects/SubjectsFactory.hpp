@@ -1,23 +1,22 @@
 //Andrzej Przybylski & Monika Berlinska
 //Factory to create new subjects
-#ifndef SUBJECTSFACTORY_H
-#define SUBJECTSFACTORY_H
-#include<stdio.h>
-#include<exception>
+#ifndef SUBJECTSFACTORY_HPP
+#define SUBJECTSFACTORY_HPP
+#include <stdio.h>
+#include <exception>
 #include <cstdlib>
 #include <ctime>
 #include "Plant.hpp"
-#include "Herbivore.h"
+#include "Herbivore.hpp"
+#include "Predator.hpp"
 
 class SubjectsFactory {
     private:
         enum {PREDATOR, HERBIVORE, PLANT};
-        SubjectsFactory()
-        {
-            srand(time(NULL));
-        }
+        SubjectsFactory() { srand(time(NULL)); }
         SubjectsFactory(const SubjectsFactory&) = delete;
         SubjectsFactory& operator=(const SubjectsFactory&) = delete;
+    
     public:
         static SubjectsFactory& getInstance(){
             static SubjectsFactory instance;
@@ -34,17 +33,16 @@ class SubjectsFactory {
             switch(type)
             {
                 case PREDATOR: 
-                    printf("Create a predator");
+                    sub = new Predator(x, y);
                     break;
                 case HERBIVORE: 
                     sub = new Herbivore(x, y);
                     break;
                 case PLANT:
-                    sub = new Plant(x,y);
+                    sub = new Plant(x, y);
                     break;
-                default: ;
+                default:
                    throw exc;
-                   break;
             }
             return sub;
         }

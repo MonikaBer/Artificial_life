@@ -1,7 +1,7 @@
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE
 #include <boost/test/unit_test.hpp>
-#include "../Subjects/Herbivore.h"
+#include "../Subjects/Herbivore.hpp"
 #include "../Subjects/Plant.hpp"
 
 BOOST_AUTO_TEST_CASE( testSubjectConstructor )
