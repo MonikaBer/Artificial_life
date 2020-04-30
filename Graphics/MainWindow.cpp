@@ -1,6 +1,6 @@
 //Andrzej Przybylski & Monika Berlinska
 //Main window to visualize behaviour of creatures
-#include "MainWindow.h"
+#include "MainWindow.hpp"
 
 MainWindow* MainWindow::pInstance_ = nullptr;
 

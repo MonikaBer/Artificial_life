@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cc Graphics/MainWindow.cc Subjects/Subject.hpp Subjects/Plant.hpp Subjects/Animal.hpp Subjects/Herbivore.cc Subjects/Predator.cc
+OBJS = main.cpp Graphics/MainWindow.cpp Subjects/Subject.hpp Subjects/Plant.hpp Subjects/Animal.hpp Subjects/Herbivore.cpp Subjects/Predator.cpp
 
 #CC specifies which compiler we're using
 CC = g++

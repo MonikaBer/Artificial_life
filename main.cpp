@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "Graphics/MainWindow.h"
+#include "Graphics/MainWindow.hpp"
 #include "Subjects/SubjectsFactory.hpp"
 
 using namespace std;
