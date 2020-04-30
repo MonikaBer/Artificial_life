@@ -13,7 +13,7 @@ make
 ./a.out
 ```
 
-### To compile tests
+### To compile and execute tests
 
 ```bash
 make test
