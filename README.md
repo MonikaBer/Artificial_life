@@ -2,7 +2,7 @@
 Program to simulate artificial life.
 
 ## Tools
-C++, make
+C++, make, SDL2
 
 ## Usage
 
