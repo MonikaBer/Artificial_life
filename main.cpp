@@ -20,10 +20,9 @@ static const int VIEW_SIZE = 100;
 int main()
 {
     MainWindow *mainWindow;
-    try {
-        mainWindow = mainWindow->getInstance (WINDOW_WIDTH, WINDOW_HEIGHT, AREA_SIZE, "Artificial Life");
-    } catch (exception &e) {
-        cerr << "Problem with creating a window");
+    mainWindow = mainWindow->getInstance (WINDOW_WIDTH, WINDOW_HEIGHT, AREA_SIZE, "Artificial Life");
+    if (mainWindow == nullptr) {
+        cerr << "Problem with creating a window";
         return 0;
     }
     
