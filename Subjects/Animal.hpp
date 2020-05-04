@@ -3,7 +3,6 @@
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
 #include "Subject.hpp"
-#include <stdio.h>
 #include <exception>
 
 class Animal : public Subject {

@@ -5,8 +5,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
-#include <stdio.h>
 #include <exception>
+#include <iostream>
 
 class MainWindow {
     private:

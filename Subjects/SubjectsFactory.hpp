@@ -2,7 +2,6 @@
 //Factory to create new subjects
 #ifndef SUBJECTSFACTORY_HPP
 #define SUBJECTSFACTORY_HPP
-#include <stdio.h>
 #include <exception>
 #include <cstdlib>
 #include <ctime>

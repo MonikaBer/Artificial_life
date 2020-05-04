@@ -23,7 +23,7 @@ int main()
     try {
         mainWindow = mainWindow->getInstance (WINDOW_WIDTH, WINDOW_HEIGHT, AREA_SIZE, "Artificial Life");
     } catch (exception &e) {
-        printf("Problem with creating a window");
+        cerr << "Problem with creating a window");
         return 0;
     }
     

@@ -10,5 +10,5 @@ Herbivore::Herbivore(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) 
 
 void Herbivore::eat(Subject &eaten) {
     
-    printf("eating virtual fun");
+    //eating virtual fun
 }

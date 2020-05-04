@@ -8,5 +8,5 @@ Predator::Predator(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) :
 
 void Predator::eat(Subject &eaten) {
     
-    printf("eating virtual fun");
+    //eating virtual fun
 }

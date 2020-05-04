@@ -13,13 +13,13 @@ MainWindow::MainWindow (int w, int h, int area, string title)
     exception err;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 	{
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+		cerr << "SDL could not initialize! SDL_Error: %s\n", SDL_GetError();
         throw err;
 		return;
 	}
 	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) 
 	{
-		printf( "Warning: Linear texture filtering not enabled!" );
+		cerr << "Warning: Linear texture filtering not enabled!";
 		return;
 	}
 
@@ -31,7 +31,7 @@ MainWindow::MainWindow (int w, int h, int area, string title)
 		screenWidth, screenHeight, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 	{
-		printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+		cerr << "Window could not be created! SDL_Error: %s\n", SDL_GetError();
 		throw err;
 		return;
 	}
@@ -39,7 +39,7 @@ MainWindow::MainWindow (int w, int h, int area, string title)
 	renderer = SDL_CreateRenderer (window, -1, SDL_RENDERER_ACCELERATED);
 	if (renderer == nullptr)
 	{
-		printf ("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+		cerr << "Renderer could not be created! SDL Error: %s\n", SDL_GetError();
 		return;
 	}
 	//Initialize renderer color
