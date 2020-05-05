@@ -45,6 +45,7 @@ int main()
         herbivoresCollection.push_back(pom);
     }
 
+    vector<Subject*>::iterator ite;
     while(!quit)
     {
         while (SDL_PollEvent(&ev) != 0)
@@ -57,7 +58,7 @@ int main()
 		}
         mainWindow->clearScreen();
         mainWindow->createWeb (AREA_SIZE);
-        vector<Subject*>::iterator ite;
+        
         for (ite = plantsCollection.begin(); ite != plantsCollection.end(); ++ite) {
             mainWindow->drawTypicalPlant ((*ite)->getXPosition(), (*ite)->getYPosition());
         }
@@ -67,5 +68,16 @@ int main()
         mainWindow->update();
         SDL_Delay(100);
     }
+
+    mainWindow->deleteMainWindow();
+    mainWindow = nullptr;
+
+    for (ite = plantsCollection.begin(); ite != plantsCollection.end(); ++ite)
+        delete *ite; 
+        
+    for (ite = herbivoresCollection.begin(); ite != herbivoresCollection.end(); ++ite)
+        delete *ite;
+    
+
     return 0;
 }

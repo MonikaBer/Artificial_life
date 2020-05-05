@@ -3,18 +3,24 @@
 #include <ctime>
 #include <cstdlib>
 #include "Animal.hpp"
+#include "AnimalConstants.hpp"
 using namespace std;
 
 
 Animal::Animal (int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
     srand(time(NULL));
 
-    maxEnergy = (std::rand() % 101) + 50;      //rand from 50 to 150
-    maxFulness = (std::rand() % 101) + 50;     //rand from 50 to 150
-    velocity = (std::rand() % 3) + 1;          //rand from 1 to 3
-    digestionRate = (std::rand() % 6) + 5;     //rand from 5 to 10
+    maxEnergy = (std::rand() % AnimalConstants::SIZEOF_MAX_ENERGY_RANGE)
+      + AnimalConstants::MIN_MAX_ENERGY;                                            //rand from 50 to 150
+    maxFullness = (std::rand() % AnimalConstants::SIZEOF_MAX_FULLNESS_RANGE)
+      + AnimalConstants::MIN_MAX_FULLNESS;                                          //rand from 50 to 150
+    velocity = (std::rand() % AnimalConstants::SIZEOF_VELOCITY_RANGE)
+      + AnimalConstants::MIN_VELOCITY;                                              //rand from 1 to 3
+    digestionRate = (std::rand() % AnimalConstants::SIZEOF_DIGESTION_RATE_RANGE)
+      + AnimalConstants::MIN_DIGESTION_RATE;                                        //rand from 5 to 10
+    
     energy = maxEnergy;                   
-    fullness = maxFulness; 
+    fullness = maxFullness; 
     lifeTime = 0;                              
 
     maxLifeTime = maxLifeTimeSetting;              
@@ -57,6 +63,6 @@ int Animal::getLifeTime() { return lifeTime; }
 int Animal::getVelocity() { return velocity; }
 int Animal::getDigestionRate() { return digestionRate; }
 int Animal::getMaxEnergy() { return maxEnergy; }
-int Animal::getMaxFulness() { return maxFulness; }
+int Animal::getMaxFullness() { return maxFullness; }
 int Animal::getMaxLifeTime() { return maxLifeTime; }
 int Animal::getViewSize() { return viewSize; }

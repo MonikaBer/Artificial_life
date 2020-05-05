@@ -33,6 +33,7 @@ class MainWindow {
         void drawHerbivore(int x, int y);
         void drawPredator(int x, int y);
         void update();
+        void deleteMainWindow();
 };
 
 #endif

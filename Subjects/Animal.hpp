@@ -16,7 +16,7 @@ class Animal : public Subject {
         int velocity;        //number of leaps per one motion
         int digestionRate;   //amount of fullness which is lost per each motion
         int maxEnergy;
-        int maxFulness;
+        int maxFullness;
        
         //user settings
         int maxLifeTime;       //max number of motions
@@ -38,7 +38,7 @@ class Animal : public Subject {
         int getVelocity();
         int getDigestionRate();
         int getMaxEnergy();
-        int getMaxFulness();
+        int getMaxFullness();
         int getMaxLifeTime();
         int getViewSize();
 
