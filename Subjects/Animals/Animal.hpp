@@ -2,7 +2,7 @@
 //virtual base class for animals
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
-#include "Subject.hpp"
+#include "../Subject.hpp"
 #include <exception>
 
 class Animal : public Subject {

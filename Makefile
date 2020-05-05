@@ -1,6 +1,6 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp Graphics/MainWindow.cpp Subjects/Plant.cpp Subjects/Animal.cpp Subjects/Herbivore.cpp Subjects/Predator.cpp 
-TEST_OBJS = Unit_tests/subjectsTests.cpp Subjects/Animal.cpp Subjects/Herbivore.cpp Subjects/Predator.cpp Subjects/Plant.cpp
+OBJS = main.cpp Graphics/MainWindow.cpp Subjects/Plants/Plant.cpp Subjects/Animals/Animal.cpp Subjects/Animals/Herbivore.cpp Subjects/Animals/Predator.cpp 
+TEST_OBJS = Unit_tests/subjectsTests.cpp Subjects/Animals/Animal.cpp Subjects/Animals/Herbivore.cpp Subjects/Animals/Predator.cpp Subjects/Plants/Plant.cpp
 
 #CC specifies which compiler we're using
 CC = g++

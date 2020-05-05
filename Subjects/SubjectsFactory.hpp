@@ -5,10 +5,10 @@
 #include <exception>
 #include <cstdlib>
 #include <ctime>
-#include "TypicalPlant.hpp"
-#include "SuperPlant.hpp"
-#include "Herbivore.hpp"
-#include "Predator.hpp"
+#include "Plants/TypicalPlant.hpp"
+#include "Plants/SuperPlant.hpp"
+#include "Animals/Herbivore.hpp"
+#include "Animals/Predator.hpp"
 
 class SubjectsFactory {
     private:

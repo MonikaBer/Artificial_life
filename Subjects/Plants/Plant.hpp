@@ -3,7 +3,7 @@
 #ifndef PLANT_HPP
 #define PLANT_HPP
 
-#include"Subject.hpp"
+#include"../Subject.hpp"
 
 class Plant : public Subject {
     private:
