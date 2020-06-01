@@ -6,7 +6,7 @@
 class TypicalPlant : public Plant { 
     public:
         TypicalPlant(int x, int y) : Plant(x, y) {
-            this->setCaloricity(0.25);
+            caloricity = 0.25;
         }        
 };
 

@@ -6,7 +6,7 @@
 class SuperPlant : public Plant {
     public:
         SuperPlant(int x, int y) : Plant(x, y) {
-            this->setCaloricity(1.0);
+            caloricity = 1.0;
         } 
 };
 

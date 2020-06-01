@@ -30,7 +30,7 @@ class SubjectsFactory {
             int x = (std::rand() % maxX) * areaSize;
             int y = (std::rand() % maxY) * areaSize;
 
-            switch(type)
+            switch (type)
             {
                 case PREDATOR: 
                     sub = new Predator(x, y, maxLifeTimeSetting, viewSizeSetting);

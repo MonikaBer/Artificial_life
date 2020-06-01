@@ -60,7 +60,7 @@ void MainWindow::clearScreen()
 
 void MainWindow::createWeb (int areaSize)
 {
-	SDL_SetRenderDrawColor (renderer, RendererConstants::MAX_COLOR_VALUE, 0.6*RendererConstants::MAX_COLOR_VALUE,
+	SDL_SetRenderDrawColor (renderer, RendererConstants::MAX_COLOR_VALUE, 0.6*RendererConstants::MIN_COLOR_VALUE,
 	  0.8*RendererConstants::MAX_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);	
 	for (int i = 0; i < screenHeight; i += areaSize)
 		SDL_RenderDrawLine (renderer, 0, i, screenWidth, i);
@@ -71,16 +71,16 @@ void MainWindow::createWeb (int areaSize)
 void MainWindow::drawTypicalPlant (int x, int y)
 {
 	SDL_Rect plantRect = {x+1, y+1, areaSize-1, areaSize-1};
-	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, 0.5*RendererConstants::MAX_COLOR_VALUE, 
-	  RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);		
+	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, 0.5*RendererConstants::MAX_COLOR_VALUE,
+	  RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);
 	SDL_RenderFillRect (renderer, &plantRect);
 }
 
 void MainWindow::drawSuperPlant (int x, int y)
 {
 	SDL_Rect plantRect = {x+1, y+1, areaSize-1, areaSize-1};
-	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, 0.5*RendererConstants::MAX_COLOR_VALUE,
-	  RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);		
+	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_COLOR_VALUE,
+	  RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);
 	SDL_RenderFillRect (renderer, &plantRect);
 }
 
@@ -88,7 +88,7 @@ void MainWindow::drawHerbivore (int x, int y)
 {
 	SDL_Rect herbRect = {x+1, y+1, areaSize-1, areaSize-1};
 	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, RendererConstants::MIN_COLOR_VALUE,
-	  RendererConstants::MAX_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);		
+	  RendererConstants::MAX_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);
 	SDL_RenderFillRect (renderer, &herbRect);
 }
 

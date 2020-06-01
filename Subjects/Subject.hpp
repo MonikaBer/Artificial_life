@@ -26,7 +26,6 @@ class Subject {
         {
             return yposition;
         }
-        //virtual void move();
 };
 
 #endif

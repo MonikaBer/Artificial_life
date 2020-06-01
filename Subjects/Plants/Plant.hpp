@@ -6,12 +6,11 @@
 #include"../Subject.hpp"
 
 class Plant : public Subject {
-    private:
+    protected:
         double caloricity;      //1.0 for SuperPlant, 0.25 for TypicalPlant
 
     public:
         Plant(int x, int y) : Subject(x, y) {}
-        void setCaloricity(double cal);
 };
 
 #endif

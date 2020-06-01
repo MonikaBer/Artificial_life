@@ -3,6 +3,3 @@
 #include"Plant.hpp"
 
 
-void Plant::setCaloricity(double cal) {
-    this->caloricity = cal;
-}

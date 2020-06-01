@@ -4,7 +4,7 @@
 
 using namespace std;
 
-static const int AREA_SIZE = 5;
+static const int AREA_SIZE = 10;
 static const int WINDOW_WIDTH = 640;
 static const int WINDOW_HEIGHT = 480;
 
@@ -38,17 +38,17 @@ int main()
 
     SubjectsCollection &collection = SubjectsCollection::getInstance();
     Subject *pom = nullptr;
-    for (int i = 1; i <= NUMBER_OF_TYPICAL_PLANTS; ++i)
+    for (int i = 0; i < NUMBER_OF_TYPICAL_PLANTS; ++i)
     {
         pom = factory.create (2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
         collection.push(dynamic_cast<Plant*>(pom));
     }
-    for (int i = 1; i <= NUMBER_OF_HERBIVORES; ++i)
+    for (int i = 0; i < NUMBER_OF_HERBIVORES; ++i)
     {
         pom = factory.create (1, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
         collection.push(dynamic_cast<Herbivore*>(pom));
     }
-    for (int i = 1; i<=NUMBER_OF_PREDATORS; ++i)
+    for (int i = 0; i< NUMBER_OF_PREDATORS; ++i)
     {
         pom = factory.create(0, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
         collection.push(dynamic_cast<Predator*>(pom));
@@ -70,23 +70,24 @@ int main()
         collection.subjectsRound(cycleNumber, reproductionPeriod);
 
         mainWindow->clearScreen();
-        mainWindow->createWeb (AREA_SIZE);
+        mainWindow->createWeb(AREA_SIZE);
 
         collection.actualizeSubjectsPositionOnScreen(mainWindow);
 
         mainWindow->update();
         SDL_Delay(DELAY_TIME);
-        if (cycleNumber == 99) {cycleNumber = 0;}
-        else {cycleNumber++;}
-        if (reproductionPeriod == false)
+        if (cycleNumber == 99)  cycleNumber = 0;
+        else  cycleNumber++;
+
+        if (!reproductionPeriod)
         {
-            if(cycleNumber%REPRODUCTION_FREQUENCY == 0)
+            if (cycleNumber % REPRODUCTION_FREQUENCY == 0)
             {
                 reproductionPeriod = true;
             }
         }
         else {
-            if((cycleNumber-REPRODUCTION_FREQUENCY)%REPRODUCTION_PERIOD_LENGTH == 0)
+            if ((cycleNumber - REPRODUCTION_PERIOD_LENGTH) % REPRODUCTION_FREQUENCY == 0)
             {
                 reproductionPeriod = false;
             }
@@ -95,14 +96,6 @@ int main()
 
     mainWindow->deleteMainWindow();
     mainWindow = nullptr;
-
-    /*for (ite = plantsCollection.begin(); ite != plantsCollection.end(); ++ite)
-        delete *ite; 
-        
-    for (ite = herbivoresCollection.begin(); ite != herbivoresCollection.end(); ++ite)
-        delete *ite;
-    */
     collection.deleteAllSubjects();
-
     return 0;
 }

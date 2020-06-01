@@ -8,8 +8,6 @@ using namespace std;
 
 
 Animal::Animal (int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
-    //srand(time(NULL));            //It seems to be bad idea. srand should be declared just once and it is in SubjectsFactory class
-
     maxEnergy = (std::rand() % AnimalConstants::SIZEOF_MAX_ENERGY_RANGE)
       + AnimalConstants::MIN_MAX_ENERGY;                                            //rand from 50 to 150
     maxFullness = (std::rand() % AnimalConstants::SIZEOF_MAX_FULLNESS_RANGE)
@@ -24,10 +22,10 @@ Animal::Animal (int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Sub
     lifeTime = 0;                              
 
     maxLifeTime = maxLifeTimeSetting;              
-    viewSize = viewSizeSetting;          
+    viewSize = viewSizeSetting;
 }
 
-bool Animal::lookAround (int & x, int & y, int target) {
+bool Animal::lookAround (int &x, int &y, int target) {
     //look for food/partner in the field of view, set position of food/partner and return true if success
     //otherwise return false and set x = -1, y = -1
     //target is food/partner
@@ -36,7 +34,7 @@ bool Animal::lookAround (int & x, int & y, int target) {
 }
 
 int Animal::move (int x, int y){
-    int leapsNumber = 2;
+    int leapsNumber = 0;
 
     //moving algorithm which set new position of animal, point is a position of found food
     //returns number of leaps during the motion
@@ -57,10 +55,7 @@ void Animal::reproduce() {
 }
 
 void Animal::thisTurn(int leap, bool reproductionPeriod) {
-    if(leap%this->velocity == 0)
-    {
-      
-    }
+
 }
 
 //getters

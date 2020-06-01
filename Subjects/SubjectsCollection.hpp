@@ -1,7 +1,7 @@
 //Andrzej Przybylski & Monika Berlinska
 //container for all kind of subjects
-#ifndef SUBJECTSCOLLECTION_H
-#define SUBJECTSCOLLECTION_H
+#ifndef SUBJECTS_COLLECTION_H
+#define SUBJECTS_COLLECTION_H
 
 #include "SubjectsFactory.hpp"
 #include "../Graphics/MainWindow.hpp"

@@ -12,8 +12,8 @@ class Animal : public Subject {
         int fullness;      
         int lifeTime;          //number of motions done
         
-        //variables which does not depend on time
-        int velocity;        //number of leaps per one motion - the smaller the faster
+        //variables which don't depend on time
+        int velocity;        //number of leaps per one motion (?the smaller the faster??)
         int digestionRate;   //amount of fullness which is lost per each motion
         int maxEnergy;
         int maxFullness;
@@ -24,7 +24,7 @@ class Animal : public Subject {
         //end of user settings
 
     public:
-        Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting);
+        Animal(int x, int y, int maxLifeTime, int viewSize);
         virtual ~Animal(){}
         
         int move(int x, int y);

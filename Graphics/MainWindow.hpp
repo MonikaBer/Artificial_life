@@ -1,7 +1,7 @@
 //Andrzej Przybylski & Monika Berlinska
 //Main window to visualize behaviour of creatures
-#ifndef MAINWINDOW_HPP
-#define MAINWINDOW_HPP
+#ifndef MAIN_WINDOW_HPP
+#define MAIN_WINDOW_HPP
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
