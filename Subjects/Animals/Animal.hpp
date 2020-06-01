@@ -13,7 +13,7 @@ class Animal : public Subject {
         int lifeTime;          //number of motions done
         
         //variables which does not depend on time
-        int velocity;        //number of leaps per one motion
+        int velocity;        //number of leaps per one motion - the smaller the faster
         int digestionRate;   //amount of fullness which is lost per each motion
         int maxEnergy;
         int maxFullness;
@@ -30,6 +30,7 @@ class Animal : public Subject {
         int move(int x, int y);
         bool lookAround(int & x, int & y, int);
         void updateParameters(int leaps);
+        void thisTurn(int leap, bool reproductionPeriod);    //main function deciding what to do
         void sleep();
         void reproduce();
         int getEnergy(); 

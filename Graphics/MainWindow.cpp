@@ -86,18 +86,18 @@ void MainWindow::drawSuperPlant (int x, int y)
 
 void MainWindow::drawHerbivore (int x, int y)
 {
-	SDL_Rect plantRect = {x+1, y+1, areaSize-1, areaSize-1};
+	SDL_Rect herbRect = {x+1, y+1, areaSize-1, areaSize-1};
 	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, RendererConstants::MIN_COLOR_VALUE,
 	  RendererConstants::MAX_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);		
-	SDL_RenderFillRect (renderer, &plantRect);
+	SDL_RenderFillRect (renderer, &herbRect);
 }
 
 void MainWindow::drawPredator (int x, int y)
 {
-	SDL_Rect fillRect = {x, y, 100, 100};
+	SDL_Rect predRect = {x+1, y+1, areaSize-1, areaSize-1};
 	SDL_SetRenderDrawColor (renderer, RendererConstants::MAX_COLOR_VALUE, RendererConstants::MIN_COLOR_VALUE,
 	  RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);		
-	SDL_RenderFillRect (renderer, &fillRect);
+	SDL_RenderFillRect (renderer, &predRect);
 }
 
 void MainWindow::update()

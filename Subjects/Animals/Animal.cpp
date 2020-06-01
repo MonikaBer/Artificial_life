@@ -8,7 +8,7 @@ using namespace std;
 
 
 Animal::Animal (int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
-    srand(time(NULL));
+    //srand(time(NULL));            //It seems to be bad idea. srand should be declared just once and it is in SubjectsFactory class
 
     maxEnergy = (std::rand() % AnimalConstants::SIZEOF_MAX_ENERGY_RANGE)
       + AnimalConstants::MIN_MAX_ENERGY;                                            //rand from 50 to 150
@@ -54,6 +54,13 @@ void Animal::sleep() {
 
 void Animal::reproduce() {
     //reproduce with another animal
+}
+
+void Animal::thisTurn(int leap, bool reproductionPeriod) {
+    if(leap%this->velocity == 0)
+    {
+      
+    }
 }
 
 //getters
