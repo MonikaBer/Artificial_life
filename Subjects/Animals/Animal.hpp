@@ -3,10 +3,11 @@
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
 #include "../Subject.hpp"
+#include "../../helper.hpp"
 #include <exception>
 
 class Animal : public Subject {
-    private:
+    protected:
         //variables which depend on time
         int energy;            //one unit of energy will being lost after each leap
         int fullness;      
@@ -29,8 +30,8 @@ class Animal : public Subject {
         
         int move(int x, int y);
         bool lookAround(int & x, int & y, int);
-        void updateParameters(int leaps);
-        void thisTurn(bool reproductionPeriod);    //main function deciding what to do
+        void updateParameters(int leapsNr);
+        void thisTurn(bool reproductionPeriod, Coordinates &consumedSubjectPosition, Coordinates &childPosition);  //main function deciding what to do
         void sleep();
         void reproduce();
         int getEnergy(); 

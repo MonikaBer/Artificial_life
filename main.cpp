@@ -72,6 +72,15 @@ int main()
 		}
 
         collection.subjectsRound(reproductionPeriod);
+
+        //increase number of plants to NUMBER_OF_TYPICAL_PLANTS
+        for (int i = 0; i < NUMBER_OF_TYPICAL_PLANTS - collection.getPlantsNumber(); ++i)
+        {
+            pom = factory.create(2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
+            while (!collection.push(dynamic_cast<Plant*>(pom)))
+                pom = factory.create(2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
+        }
+
         mainWindow->clearScreen();
         mainWindow->createWeb(AREA_SIZE);
         collection.actualizeSubjectsPositionOnScreen(mainWindow);

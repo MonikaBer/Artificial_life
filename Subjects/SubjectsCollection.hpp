@@ -5,11 +5,9 @@
 
 #include "SubjectsFactory.hpp"
 #include "../Graphics/MainWindow.hpp"
+#include "../helper.hpp"
 #include <vector>
 #include <map>
-#include <utility>
-
-typedef std::pair<int, int> Coordinates;
 
 class SubjectsCollection {
     private:
@@ -30,11 +28,16 @@ class SubjectsCollection {
         bool push(Plant* sub);
         bool push(Herbivore *sub);
         bool push(Predator *sub);
-        void remove(Subject* sub);
         void actualizeSubjectsPositionOnScreen(MainWindow* mainWindow);
-        void subjectsRound(bool reproductionPeriod);
-
         void deleteAllSubjects();
-};
+        //void remove(Subject* sub);
+        void deletePredator(int predIndex);
+        void deleteHerbivore(int herbIndex);
+        void deleteHerbivore(Coordinates herbPosition);
+        //void delete Plant(int plantIndex);                //usefulness depends on assumption that plant has lifeTime
+        void deletePlant(Coordinates plantPosition);
+        void subjectsRound(bool reproductionPeriod);
+        int getPlantsNumber();
+    };
 
 #endif

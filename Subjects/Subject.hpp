@@ -4,15 +4,17 @@
 #define SUBJECT_HPP
 
 class Subject {
-    private:
+    protected:
         int xposition;
         int yposition;
+        bool toDelete;  //is (or not) subject to delete
     
     public:
         Subject(int x, int y)
         {
             xposition = x;
             yposition = y;
+            toDelete = false;
         }
 
         virtual ~Subject(){}
@@ -25,6 +27,10 @@ class Subject {
         int getYPosition()
         {
             return yposition;
+        }
+
+        bool isToDelete() {
+            return toDelete;
         }
 };
 
