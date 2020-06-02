@@ -54,7 +54,7 @@ void Animal::reproduce() {
     //reproduce with another animal
 }
 
-void Animal::thisTurn(int leap, bool reproductionPeriod) {
+void Animal::thisTurn(bool reproductionPeriod) {
 
 }
 

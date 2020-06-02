@@ -40,18 +40,21 @@ int main()
     Subject *pom = nullptr;
     for (int i = 0; i < NUMBER_OF_TYPICAL_PLANTS; ++i)
     {
-        pom = factory.create (2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
-        collection.push(dynamic_cast<Plant*>(pom));
+        pom = factory.create(2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
+        while (!collection.push(dynamic_cast<Plant*>(pom)))
+            pom = factory.create(2, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
     }
     for (int i = 0; i < NUMBER_OF_HERBIVORES; ++i)
     {
-        pom = factory.create (1, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
-        collection.push(dynamic_cast<Herbivore*>(pom));
+        pom = factory.create(1, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
+        while (!collection.push(dynamic_cast<Herbivore*>(pom)))
+            pom = factory.create(1, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
     }
     for (int i = 0; i< NUMBER_OF_PREDATORS; ++i)
     {
         pom = factory.create(0, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
-        collection.push(dynamic_cast<Predator*>(pom));
+        while (!collection.push(dynamic_cast<Predator*>(pom)))
+            pom = factory.create(0, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
     }
 
     vector<Subject*>::iterator ite;
@@ -67,17 +70,13 @@ int main()
 				quit = true;
 			}
 		}
-        collection.subjectsRound(cycleNumber, reproductionPeriod);
 
+        collection.subjectsRound(reproductionPeriod);
         mainWindow->clearScreen();
         mainWindow->createWeb(AREA_SIZE);
-
         collection.actualizeSubjectsPositionOnScreen(mainWindow);
-
         mainWindow->update();
         SDL_Delay(DELAY_TIME);
-        if (cycleNumber == 99)  cycleNumber = 0;
-        else  cycleNumber++;
 
         if (!reproductionPeriod)
         {
@@ -92,6 +91,9 @@ int main()
                 reproductionPeriod = false;
             }
         }
+
+        if (cycleNumber == ONE_CYCLE_SIZE-1)  cycleNumber = 0;
+        else  cycleNumber++;
     }
 
     mainWindow->deleteMainWindow();

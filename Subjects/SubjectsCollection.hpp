@@ -27,12 +27,12 @@ class SubjectsCollection {
             return instance;
         }
 
-        void push(Plant* sub);
-        void push(Herbivore *sub);
-        void push(Predator *sub);
+        bool push(Plant* sub);
+        bool push(Herbivore *sub);
+        bool push(Predator *sub);
         void remove(Subject* sub);
         void actualizeSubjectsPositionOnScreen(MainWindow* mainWindow);
-        void subjectsRound(int cycleNumber, bool reproductionPeriod);
+        void subjectsRound(bool reproductionPeriod);
 
         void deleteAllSubjects();
 };

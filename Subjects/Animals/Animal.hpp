@@ -30,7 +30,7 @@ class Animal : public Subject {
         int move(int x, int y);
         bool lookAround(int & x, int & y, int);
         void updateParameters(int leaps);
-        void thisTurn(int leap, bool reproductionPeriod);    //main function deciding what to do
+        void thisTurn(bool reproductionPeriod);    //main function deciding what to do
         void sleep();
         void reproduce();
         int getEnergy(); 

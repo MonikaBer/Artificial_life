@@ -2,31 +2,37 @@
 //container for all kind of subjects
 #include "SubjectsCollection.hpp"
 
-void SubjectsCollection::push(Plant *sub)
+bool SubjectsCollection::push(Plant *sub)
 {
     Coordinates tmpPair = std::make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
         this->areaMap.insert({tmpPair, sub});
         this->plantsCollection.push_back(sub);
+        return true;  //success - plant added
     }
+    return false;  //fail - on this position exists another plant
 }
 
-void SubjectsCollection::push(Herbivore *sub)
+bool SubjectsCollection::push(Herbivore *sub)
 {
     Coordinates tmpPair = std::make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
         this->areaMap.insert({tmpPair, sub});
         this->herbivoresCollection.push_back(sub);
+        return true;  //success - herbivore added
     }
+    return false;  //fail - on this position exists another herbivore
 }
 
-void SubjectsCollection::push(Predator *sub)
+bool SubjectsCollection::push(Predator *sub)
 {
     Coordinates tmpPair = std::make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
         this->areaMap.insert({tmpPair, sub});
         this->predatorsCollection.push_back(sub);
+        return true;  //success - predator added
     }
+    return false;  //fail - on this position exists another predator
 }
 
 void SubjectsCollection::actualizeSubjectsPositionOnScreen(MainWindow* mainWindow)
@@ -60,11 +66,21 @@ void SubjectsCollection::deleteAllSubjects()
     predatorsCollection.clear();
 }
 
-void SubjectsCollection::subjectsRound(int cycleNumber, bool reproductionPeriod)
+void SubjectsCollection::subjectsRound(bool reproductionPeriod)
 {
     std::vector<Predator*>::iterator predIter;
-    for (predIter = predatorsCollection.begin(); predIter != predatorsCollection.end(); predIter++)
+    std::vector<Herbivore*>::iterator herbIter;
+    for (predIter = predatorsCollection.begin(), herbIter = herbivoresCollection.begin(); ; )
     {
-        (*predIter)->thisTurn(cycleNumber, reproductionPeriod);
+        if (predIter != predatorsCollection.end()) {
+            (*predIter)->thisTurn(reproductionPeriod);
+            predIter++;
+        }
+        if (herbIter != herbivoresCollection.end()) {
+            (*herbIter)->thisTurn(reproductionPeriod);
+            herbIter++;
+        }
+        if (predIter == predatorsCollection.end() && herbIter == herbivoresCollection.end())
+            return;
     }
 }
