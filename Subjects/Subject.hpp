@@ -5,15 +5,15 @@
 
 class Subject {
     protected:
-        int xposition;
-        int yposition;
+        int xPosition;
+        int yPosition;
         bool toDelete;  //is (or not) subject to delete
     
     public:
         Subject(int x, int y)
         {
-            xposition = x;
-            yposition = y;
+            xPosition = x;
+            yPosition = y;
             toDelete = false;
         }
 
@@ -21,12 +21,12 @@ class Subject {
         
         int getXPosition()
         {
-            return xposition;
+            return xPosition;
         }
         
         int getYPosition()
         {
-            return yposition;
+            return yPosition;
         }
 
         bool isToDelete() {

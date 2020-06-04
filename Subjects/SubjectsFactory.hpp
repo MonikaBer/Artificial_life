@@ -1,7 +1,7 @@
 //Andrzej Przybylski & Monika Berlinska
 //Factory to create new subjects
-#ifndef SUBJECTSFACTORY_HPP
-#define SUBJECTSFACTORY_HPP
+#ifndef SUBJECTS_FACTORY_HPP
+#define SUBJECTS_FACTORY_HPP
 #include <exception>
 #include <cstdlib>
 #include <ctime>

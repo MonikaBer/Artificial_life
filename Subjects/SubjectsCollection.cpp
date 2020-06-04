@@ -6,7 +6,7 @@ using namespace std;
 
 bool SubjectsCollection::push(Plant *sub)
 {
-    Coordinates tmpPair = std::make_pair(sub->getXPosition(), sub->getYPosition());
+    Coordinates tmpPair = make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
         this->areaMap.insert({tmpPair, sub});
         this->plantsCollection.push_back(sub);
@@ -17,7 +17,7 @@ bool SubjectsCollection::push(Plant *sub)
 
 bool SubjectsCollection::push(Herbivore *sub)
 {
-    Coordinates tmpPair = std::make_pair(sub->getXPosition(), sub->getYPosition());
+    Coordinates tmpPair = make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
         this->areaMap.insert({tmpPair, sub});
         this->herbivoresCollection.push_back(sub);
@@ -28,7 +28,7 @@ bool SubjectsCollection::push(Herbivore *sub)
 
 bool SubjectsCollection::push(Predator *sub)
 {
-    Coordinates tmpPair = std::make_pair(sub->getXPosition(), sub->getYPosition());
+    Coordinates tmpPair = make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
         this->areaMap.insert({tmpPair, sub});
         this->predatorsCollection.push_back(sub);
@@ -39,9 +39,9 @@ bool SubjectsCollection::push(Predator *sub)
 
 void SubjectsCollection::actualizeSubjectsPositionOnScreen(MainWindow* mainWindow)
 {
-    std::vector<Plant*>::iterator plantIter;
-    std::vector<Herbivore*>::iterator herbIter;
-    std::vector<Predator*>::iterator predIter;
+    vector<Plant*>::iterator plantIter;
+    vector<Herbivore*>::iterator herbIter;
+    vector<Predator*>::iterator predIter;
 
     for (plantIter = plantsCollection.begin(); plantIter != plantsCollection.end(); ++plantIter) {
         mainWindow->drawTypicalPlant((*plantIter)->getXPosition(), (*plantIter)->getYPosition());
@@ -56,7 +56,7 @@ void SubjectsCollection::actualizeSubjectsPositionOnScreen(MainWindow* mainWindo
 
 void SubjectsCollection::deleteAllSubjects()
 {
-    std::map<Coordinates, Subject*>::iterator it = this->areaMap.begin();
+    map<Coordinates, Subject*>::iterator it = this->areaMap.begin();
 
     for (it; it != this->areaMap.end(); it++) 
     {
@@ -74,7 +74,7 @@ void SubjectsCollection::deletePredator(int predIndex) {
     //delete from collection
     predatorsCollection.erase(predatorsCollection.begin() + predIndex);
     //delete from map
-    std::map<Coordinates, Subject*>::iterator it = areaMap.find(predPosition);
+    map<Coordinates, Subject*>::iterator it = areaMap.find(predPosition);
     delete (*it).second;
     areaMap.erase(it);
 }
@@ -85,15 +85,15 @@ void SubjectsCollection::deleteHerbivore(int herbIndex) {
     //delete from collection
     herbivoresCollection.erase(herbivoresCollection.begin() + herbIndex);
     //delete from map
-    std::map<Coordinates, Subject*>::iterator it = areaMap.find(herbPosition);
+    map<Coordinates, Subject*>::iterator it = areaMap.find(herbPosition);
     delete (*it).second;
     areaMap.erase(it);
 }
 
 void SubjectsCollection::deleteHerbivore(Coordinates herbPosition) {
-    std::map<Coordinates, Subject*>::iterator it = areaMap.find(herbPosition);
+    map<Coordinates, Subject*>::iterator it = areaMap.find(herbPosition);
     //delete from collection
-    for (std::vector<Herbivore*>::iterator herbIter = herbivoresCollection.begin();
+    for (vector<Herbivore*>::iterator herbIter = herbivoresCollection.begin();
          herbIter != herbivoresCollection.end(); herbIter++) {
         if ((*herbIter)->getXPosition() == herbPosition.first && (*herbIter)->getYPosition() == herbPosition.second) {
             herbivoresCollection.erase(herbIter);
@@ -111,15 +111,15 @@ void SubjectsCollection::deleteHerbivore(Coordinates herbPosition) {
 //    //delete from collection
 //    plantsCollection.erase(plantsCollection.begin() + plantIndex);
 //    //delete from map
-//    std::map<Coordinates, Subject*>::iterator it = areaMap.find(plantPosition);
+//    map<Coordinates, Subject*>::iterator it = areaMap.find(plantPosition);
 //    delete (*it).second;
 //    areaMap.erase(it);
 //}
 
 void SubjectsCollection::deletePlant(Coordinates plantPosition) {
-    std::map<Coordinates, Subject*>::iterator it = areaMap.find(plantPosition);
+    map<Coordinates, Subject*>::iterator it = areaMap.find(plantPosition);
     //delete from collection
-    for (std::vector<Plant*>::iterator plantIter = plantsCollection.begin();
+    for (vector<Plant*>::iterator plantIter = plantsCollection.begin();
          plantIter != plantsCollection.end(); plantIter++) {
         if ((*plantIter)->getXPosition() == plantPosition.first && (*plantIter)->getYPosition() == plantPosition.second) {
             plantsCollection.erase(plantIter);
@@ -170,8 +170,8 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod)
         }
     }
 
-    // std::vector<Predator*>::iterator predIter;
-    // std::vector<Herbivore*>::iterator herbIter;
+    // vector<Predator*>::iterator predIter;
+    // vector<Herbivore*>::iterator herbIter;
     // for (predIter = predatorsCollection.begin(), herbIter = herbivoresCollection.begin(); 
         //predIter != predatorsCollection.end() || herbIter != herbivoresCollection.end(); )
     // {

@@ -4,10 +4,11 @@
 #include <cstdlib>
 #include "Animal.hpp"
 #include "AnimalConstants.hpp"
+
 using namespace std;
 
 
-Animal::Animal (int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
+Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
     maxEnergy = (std::rand() % AnimalConstants::SIZEOF_MAX_ENERGY_RANGE)
       + AnimalConstants::MIN_MAX_ENERGY;                                            //rand from 50 to 150
     maxFullness = (std::rand() % AnimalConstants::SIZEOF_MAX_FULLNESS_RANGE)
@@ -25,21 +26,77 @@ Animal::Animal (int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Sub
     viewSize = viewSizeSetting;
 }
 
-bool Animal::lookAround (int &x, int &y, int target) {
-    //look for food/partner in the field of view, set position of food/partner and return true if success
-    //otherwise return false and set x = -1, y = -1
-    //target is food/partner
+void Animal::thisTurn(bool reproductionPeriod, Coordinates &consumedSubjectPosition, Coordinates &childPosition) {
+    Target target = determineTarget(reproductionPeriod);
 
-    return true;
+    if (target == DEAD) {
+        toDelete = true;
+        return;
+    }
+
+    int leapsNr = 0;
+    Coordinates targetPosition = make_pair(-1, -1);
+    bool isTargetEncountered = lookAround(targetPosition, target);     // target could changed
+
+    if (target == PARTNER) {
+        if (isTargetEncountered) {
+            reproduce(targetPosition, childPosition);
+        } else {
+            leapsNr = move(targetPosition, target);
+        }
+    } else if (target == FOOD) {
+        if (isTargetEncountered) {
+            eat(consumedSubjectPosition);
+        } else {
+            leapsNr = move(targetPosition, target);
+        }
+    } else if (target == SLEEP) {
+        sleep();
+    } else if (target == ESCAPE || target == NEUTRAL) {
+        leapsNr = move(targetPosition, target);
+    }
+
+    updateParameters(leapsNr);
 }
 
-int Animal::move (int x, int y){
-    int leapsNumber = 0;
+Target Animal::determineTarget(bool reproductionPeriod) {
+    Target target = NEUTRAL;
+    if (fullness == 0 || energy == 0 || lifeTime == maxLifeTime)
+        target = DEAD;
+    else if (reproductionPeriod && fullness >= 0.2*maxFullness && energy >= 0.2*maxEnergy)
+        target = PARTNER;
+    else if (fullness < 0.2*maxFullness)
+        target = FOOD;
+    else if (energy < 0.2*maxEnergy)
+        target = SLEEP;
+    else if (fullness < 0.5*maxFullness)
+        target = FOOD;
+    else if (energy < 0.3*maxEnergy || fullness > 0.85*maxFullness)
+        target = SLEEP;
+    else
+        target = FOOD;
+    return target;
+}
 
-    //moving algorithm which set new position of animal, point is a position of found food
-    //returns number of leaps during the motion
-    
-    return leapsNumber;
+int Animal::move(Coordinates targetPosition, Target target) {    //x, y -> target position; if x = -1, y = -1 -> no target
+    int leapsNumber = 0;
+//    if (target == ) {
+//
+//    }
+
+    return leapsNumber;     //returns traveled distance
+}
+
+void Animal::eat(Coordinates &consumedSubjectPosition) {
+
+}
+
+void Animal::sleep() {
+    energy += 0.1 * maxEnergy;
+}
+
+void Animal::reproduce(Coordinates targetPosition, Coordinates &childPosition) {
+    //reproduce with another animal
 }
 
 void Animal::updateParameters (int leapsNr) {  //update fullness, energy and lifeTime
@@ -47,49 +104,9 @@ void Animal::updateParameters (int leapsNr) {  //update fullness, energy and lif
     if (fullness < 0)
         fullness = 0;
     energy -= leapsNr;
-    if (energy < 0) {
+    if (energy < 0)
         energy = 0;
-    }
     lifeTime++;
-}
-
-void Animal::sleep() {
-    //animal sleeps, regenerates
-}
-
-void Animal::reproduce() {
-    //reproduce with another animal
-}
-
-void Animal::thisTurn(bool reproductionPeriod, Coordinates &consumedSubjectPosition, Coordinates &childPosition) {
-    if (fullness == 0 || energy == 0 || lifeTime == maxLifeTime) {
-        toDelete = true;
-        return;
-    }
-    int leapsNr = 0;
-    if (reproductionPeriod && fullness >= 0.2*maxFullness && energy >= 0.2*maxEnergy) {
-        //look for partner
-        //if partner is found -> reproduce and set childPosition
-        //update leapsNr
-    } else {
-        if (fullness < 0.2*maxFullness) {
-            //look for food
-            //update leapsNr
-        } else if (energy < 0.2*maxEnergy) {
-            //sleep
-        } else if (fullness < 0.5*maxFullness) {
-            //look for food
-            //update leapsNr
-        } else if (energy < 0.3*maxEnergy || fullness > 0.85*maxFullness) {
-            //sleep
-        } else {
-            //look for food
-            //update leapsNr
-        }
-        //set consumedSubjectPosition if animal found food
-    }
-
-    updateParameters(leapsNr);
 }
 
 //getters

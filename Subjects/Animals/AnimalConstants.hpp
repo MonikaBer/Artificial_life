@@ -12,7 +12,7 @@ class AnimalConstants {
         static const int SIZEOF_VELOCITY_RANGE = 3;
         static const int MIN_VELOCITY = 1;
         static const int SIZEOF_DIGESTION_RATE_RANGE = 6;    
-        static const int MIN_DIGESTION_RATE = 5;      
+        static const int MIN_DIGESTION_RATE = 5;
 };
 
 #endif

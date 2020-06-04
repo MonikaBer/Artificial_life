@@ -1,12 +1,12 @@
 //Andrzej Przybylski & Monika Berlinska
 //class representing predator animals
-#include"Predator.hpp"
+#include "Predator.hpp"
 
 
 Predator::Predator(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : 
   Animal(x, y, maxLifeTimeSetting, viewSizeSetting) {}
 
-void Predator::eat(Subject &eaten) {
+bool Predator::lookAround(Coordinates &targetPosition, Target &target) {
     
-    //eating virtual fun
+    return true;  //target is encountered
 }

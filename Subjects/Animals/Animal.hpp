@@ -2,9 +2,10 @@
 //virtual base class for animals
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
-#include "../Subject.hpp"
 #include "../../helper.hpp"
-#include <exception>
+#include "../Subject.hpp"
+
+typedef enum {FOOD, PARTNER, SLEEP, ESCAPE, NEUTRAL, DEAD} Target;
 
 class Animal : public Subject {
     protected:
@@ -27,14 +28,16 @@ class Animal : public Subject {
     public:
         Animal(int x, int y, int maxLifeTime, int viewSize);
         virtual ~Animal(){}
-        
-        int move(int x, int y);
-        bool lookAround(int & x, int & y, int);
-        void updateParameters(int leapsNr);
+
         void thisTurn(bool reproductionPeriod, Coordinates &consumedSubjectPosition, Coordinates &childPosition);  //main function deciding what to do
+        Target determineTarget(bool reproductionPeriod);
+        int move(Coordinates targetPosition, Target target);
+        void eat(Coordinates &consumedSubjectPosition);
         void sleep();
-        void reproduce();
-        int getEnergy(); 
+        void reproduce(Coordinates targetPosition, Coordinates &childPosition);
+        void updateParameters(int leapsNr);
+
+        int getEnergy();
         int getFullness(); 
         int getLifeTime();
         int getVelocity();
@@ -44,7 +47,7 @@ class Animal : public Subject {
         int getMaxLifeTime();
         int getViewSize();
 
-        virtual void eat(Subject &eaten) = 0;
+        virtual bool lookAround(Coordinates &targetPosition, Target &target) = 0;
 };
 
 #endif
