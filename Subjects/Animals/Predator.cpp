@@ -4,7 +4,7 @@
 
 
 Predator::Predator(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : 
-  Animal(x, y, maxLifeTimeSetting, viewSizeSetting) {}
+  Animal(x, y, maxLifeTimeSetting, viewSizeSetting) {type = PREDATOR;}
 
 bool Predator::lookAround(const AreaMap &areaMap, Coordinates &targetPosition, Target &target) {
     

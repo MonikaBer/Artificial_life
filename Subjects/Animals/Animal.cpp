@@ -1,6 +1,7 @@
 //Andrzej Przybylski & Monika Berlinska
 //virtual base class for animals
 #include <ctime>
+#include <iostream>
 #include <cstdlib>
 #include <math.h>
 #include <vector>
@@ -268,3 +269,13 @@ void Animal::setMaxEnergy(int newMaxEnergy) { maxEnergy = newMaxEnergy; }
 void Animal::setMaxFullness(int newMaxFullness) { maxFullness = newMaxFullness; }
 //void Animal::setMaxLifeTime(int newMaxLifeTime) { maxLifeTime = newMaxLifeTime; }
 //void Animal::setViewSize(int newViewSize) { viewSize = newViewSize; }
+
+void Animal::printInfo()
+{
+    cout << "Energy: " << energy << endl;
+    cout << "Fullness: " << fullness << endl;
+    cout << "Life Time: " << lifeTime << endl;
+    cout << "Velocity: " << velocity << endl;
+    cout << "Digestion rate: " << digestionRate << endl;
+    cout << "VIew Size: " << viewSize << endl; 
+}

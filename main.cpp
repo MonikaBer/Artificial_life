@@ -3,6 +3,8 @@
 #include "Subjects/SubjectsCollection.hpp"
 #include "helper.hpp"
 #include "SimulationParameters.hpp"
+#include "EventHandler.hpp"
+#include "Graphics/InfoWindow.hpp"
 
 using namespace std;
 
@@ -66,6 +68,7 @@ int main()
 
     vector<Subject*>::iterator ite;
     int cycleNumber = 0;
+    int mouseX, mouseY;
     bool reproductionPeriod = false;
     bool simulationPaused = false;
     while(!quit)
@@ -77,12 +80,18 @@ int main()
 			{
 				quit = true;
 			}
-            else if(ev.type = SDL_KEYDOWN)
+            else if(ev.type == SDL_KEYDOWN)
             {
                 if(ev.key.keysym.sym == SDLK_p)
                     {simulationPaused = true;}
                 if (ev.key.keysym.sym == SDLK_u)
                     {simulationPaused = false;}
+            }
+            if(simulationPaused){
+                if(ev.type == SDL_MOUSEBUTTONDOWN && SDL_GetMouseState(&mouseX, &mouseY))
+                {
+                    collection.getSubjectInfoFromPosition(make_pair(mouseX, mouseY), AREA_SIZE);
+                }
             }
 		}
         if (!simulationPaused){

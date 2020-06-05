@@ -7,6 +7,7 @@ class TypicalPlant : public Plant {
     public:
         TypicalPlant(int x, int y) : Plant(x, y) {
             caloricity = 0.25;
+            type = TYPICAL_PLANT;
         }        
 };
 

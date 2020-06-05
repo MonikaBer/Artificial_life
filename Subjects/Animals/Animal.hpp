@@ -72,6 +72,7 @@ class Animal : public Subject {
         void setMaxFullness(int newMaxFullness); 
         // void setMaxLifeTime(int newMaxLifeTime);
         // void setViewSize(int newViewSize);
+        void printInfo();
 
         virtual bool lookAround(const AreaMap &areaMap, Coordinates &targetPosition, Target &target) = 0;
 };

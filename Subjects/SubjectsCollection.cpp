@@ -182,3 +182,43 @@ int SubjectsCollection::getPlantsNumber() {
 void SubjectsCollection::setSizeOfAreaMap(int newWidth, int newHeight) {
     areaMap.setSize(newWidth, newHeight);
 }
+
+void SubjectsCollection::getSubjectInfoFromPosition(Coordinates pos, int areaSize)
+{
+    Subject *tmp = nullptr;
+    int x, y;
+    x = (pos.first/areaSize) * areaSize;
+    y = (pos.second/areaSize) * areaSize;
+    std::map<Coordinates, Subject*>::iterator it;
+    for (it = areaMap.begin(); it!= areaMap.end(); ++it)
+    {
+        if ((*it).first.first == x && (*it).first.second == y)
+        {
+            tmp = (*it).second;
+            break;
+        }
+    }
+    if (tmp != nullptr)
+    {
+        switch(tmp->getType())
+        {
+            case PREDATOR:
+                cout << "Predator" << endl;
+                dynamic_cast<Animal*>(tmp)->printInfo();
+                cout << endl;
+                break;
+            case HERBIVORE:
+                cout << "Herbivore" << endl;
+                dynamic_cast<Animal*>(tmp)->printInfo();
+                cout << endl;
+                break;
+            case TYPICAL_PLANT:
+                cout << "Typical plant" << endl;
+                cout << endl;
+            case SUPER_PLANT:
+                cout << "Super plant" << endl;
+                cout << endl;
+        }
+    }
+    tmp = nullptr;
+}

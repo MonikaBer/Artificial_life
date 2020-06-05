@@ -6,6 +6,7 @@
 #include "SubjectsFactory.hpp"
 #include "../Graphics/MainWindow.hpp"
 #include "../AreaMap.hpp"
+#include "Animals/Animal.hpp"
 #include <vector>
 
 class SubjectsCollection {
@@ -37,6 +38,7 @@ class SubjectsCollection {
         void deletePlant(Coordinates plantPosition);
         void subjectsRound(bool reproductionPeriod);
         
+        void getSubjectInfoFromPosition(Coordinates pos, int areaSize);
         //getters
         int getPlantsNumber();
 
