@@ -1,29 +1,34 @@
 #include <iostream>
 #include <vector>
 #include "Subjects/SubjectsCollection.hpp"
+#include "helper.hpp"
+#include "SimulationParameters.hpp"
 
 using namespace std;
+SimulationParameters par("configure.txt");
 
-static const int AREA_SIZE = 10;
-static const int WINDOW_WIDTH = 640;
-static const int WINDOW_HEIGHT = 480;
+int AREA_SIZE = par.getAreaSize();
+int WINDOW_WIDTH = par.getWindowWidth();
+int WINDOW_HEIGHT = par.getWindowHeight();
 
-static const int ONE_CYCLE_SIZE = 100;
-static const int SIMULATION_SPEED = 10;             //number between 1 and 100
-static const int DELAY_TIME = 1000/SIMULATION_SPEED;
+int ONE_CYCLE_SIZE = par.getOneCycleSize();
+int SIMULATION_SPEED = par.getSimulationSpeed();             //number between 1 and 100
+int DELAY_TIME = par.getDelayTime();
 
-static const int REPRODUCTION_FREQUENCY = 50;       //break between reproduction periods
-static const int REPRODUCTION_PERIOD_LENGTH = 10;    
+int REPRODUCTION_FREQUENCY = par.getReproductionFrequency();       //break between reproduction periods
+int REPRODUCTION_PERIOD_LENGTH = par.getReproductionPeriodLength();    
 
 //starting number of subjects:
-static const int NUMBER_OF_TYPICAL_PLANTS = 40;
-static const int NUMBER_OF_HERBIVORES = 10;
-static const int NUMBER_OF_PREDATORS = 5;
-static const int MAX_LIFE_TIME = 250;
-static const int VIEW_SIZE = 100;
+int NUMBER_OF_TYPICAL_PLANTS = par.getNumberOfTypicalPlants();
+int NUMBER_OF_HERBIVORES = par.getNumberOfHerbivores();
+int NUMBER_OF_PREDATORS = par.getNumberOfPredators();
+int MAX_LIFE_TIME = par.getMaxLifeTime();
+int VIEW_SIZE = par.getViewSize();
 
 int main()
 {
+    //SimulationParameters par("configure.txt");
+    //AREA_SIZE = par.getAreaSize();
     MainWindow *mainWindow;
     mainWindow = mainWindow->getInstance (WINDOW_WIDTH, WINDOW_HEIGHT, AREA_SIZE, "Artificial Life");
     if (mainWindow == nullptr) {
