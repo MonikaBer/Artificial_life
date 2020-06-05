@@ -182,13 +182,13 @@ void Animal::mixAttributes(Animal *firstParent, Animal *secondParent) {
 }
 
 void Animal::updateParameters (int leapsNumber) {  //update fullness, energy and lifeTime
-    // fullness -= ((float)digestionRate / AnimalConstants::NUMBER_OF_PERCENTS) * maxFullness;
-    // if (fullness < AnimalConstants::ZERO_FULLNESS)
-    //     fullness = AnimalConstants::ZERO_FULLNESS;
-    // energy -= leapsNumber;
-    // if (energy < AnimalConstants::ZERO_ENERGY)
-    //     energy = AnimalConstants::ZERO_ENERGY;
-    // lifeTime++;
+//     fullness -= ((float)digestionRate / AnimalConstants::NUMBER_OF_PERCENTS) * maxFullness;
+//     if (fullness < AnimalConstants::ZERO_FULLNESS)
+//         fullness = AnimalConstants::ZERO_FULLNESS;
+//     energy -= leapsNumber;
+//     if (energy < AnimalConstants::ZERO_ENERGY)
+//         energy = AnimalConstants::ZERO_ENERGY;
+     //lifeTime++;
 }
 
 //helpers
