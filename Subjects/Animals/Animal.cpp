@@ -50,7 +50,7 @@ void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod,
                 leapsNumber++;
                 break;  //after trial of reproduction this animal waits for the next turn
             } else {    //go to partner
-                if (move(areaMap, targetPosition, target)) {  //successful motion   
+                if (oneLeapMove(areaMap, targetPosition, target)) {  //successful motion   
                     leapsNumber++;
                 } else {                 //all adjacent positions occupied, so go sleep and finished this turn
                     sleep();
@@ -59,11 +59,11 @@ void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod,
             }
         } else if (target == FOOD) {
             if (isTargetEncountered) {
-                eat(targetPosition, consumedSubjectPosition);     //set position of consumed food
+                eat(targetPosition, consumedSubjectPosition);     //increase fullness and set position of consumed food
                 leapsNumber++;
                 break;          //after eating this animal waits for the next turn
             } else {  //go to food
-                if (move(areaMap, targetPosition, target)) {  //successfully motion
+                if (oneLeapMove(areaMap, targetPosition, target)) {  //successfully motion
                     leapsNumber++;
                 } else {  //all adjacent positions occupied, so go sleep and finished this turn
                     sleep();
@@ -74,7 +74,7 @@ void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod,
             sleep(); 
             break;                                           //increase energy
         } else if (target == ESCAPE || target == NEUTRAL) {  //escape or go anywhere
-            if (move(areaMap, targetPosition, target)) {    
+            if (oneLeapMove(areaMap, targetPosition, target)) {    
                 leapsNumber++;
             } else {  //all adjacent positions occupied, so go sleep and finished this turn
                 sleep();
@@ -108,6 +108,7 @@ Target Animal::determineTarget(bool reproductionPeriod) {
 }
 
 void Animal::eat(Coordinates &targetPosition, Coordinates &consumedSubjectPosition) {
+    this->fullness = this->maxFullness;  //temporary solution
     consumedSubjectPosition.first = targetPosition.first;
     consumedSubjectPosition.second = targetPosition.second;
 }
@@ -120,7 +121,7 @@ bool Animal::putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, C
     //look for free adjacent position
     Coordinates currentPosition = make_pair(this->xPosition, this->yPosition);
     vector<Coordinates> freePositions = areaMap.returnFreeAdjacentPositions(currentPosition);
-    if (freePositions.size() == 0) {  //all adjacent position occupied -> child perishs
+    if (freePositions.empty()) {  //all adjacent position occupied -> child perishs
         childPosition.first = -1;
         childPosition.second = -1;
         return false;
@@ -131,10 +132,10 @@ bool Animal::putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, C
     return true;
 }
 
-bool Animal::move(AreaMap &areaMap, Coordinates targetPosition, Target target) { // targetPosition = (-1, -1) -> there is no target
+bool Animal::oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target target) { // targetPosition = (-1, -1) -> there is no target
     Coordinates currentPosition = make_pair(this->xPosition, this->yPosition);
     vector<Coordinates> freePositions = areaMap.returnFreeAdjacentPositions(currentPosition);
-    if (freePositions.size() == 0)
+    if (freePositions.empty())
         return false;                                  //adjacent positions are occupied
     if (target == NEUTRAL) {
         int randIndex = rand() % freePositions.size();  // rand new position to choose
@@ -151,10 +152,20 @@ bool Animal::move(AreaMap &areaMap, Coordinates targetPosition, Target target) {
         desiredDistance = *max_element(distances.begin(), distances.end());
     }
     int selectedPosition = *find(distances.begin(), distances.end(), desiredDistance);
-    this->xPosition = freePositions[selectedPosition].first;
-    this->yPosition = freePositions[selectedPosition].second;
-    //modify areaMap
-
+    //change animal position (in areaMap too):
+    map<Coordinates, Subject*>::iterator it = areaMap.find(currentPosition);
+    if (it != areaMap.end()) {
+        areaMap.erase(it);  //delete previous position in areaMap
+        //modify current animal position
+        this->xPosition = freePositions[selectedPosition].first;
+        this->yPosition = freePositions[selectedPosition].second;
+        //add new position to areaMap 
+        currentPosition.first = this->xPosition;
+        currentPosition.second = this->yPosition;
+        areaMap.insert(currentPosition, this);
+    } else {
+        //exception: animal position avoided from areaMap
+    }
     return true;  //successfully motion
 }
 
@@ -170,13 +181,13 @@ void Animal::mixAttributes(const Animal &firstParent, const Animal &secondParent
 }
 
 void Animal::updateParameters (int leapsNr) {  //update fullness, energy and lifeTime
-    fullness -= ((float)digestionRate / AnimalConstants::NUMBER_OF_PERCENTS) * maxFullness;
-    if (fullness < AnimalConstants::ZERO_FULLNESS)
-        fullness = AnimalConstants::ZERO_FULLNESS;
-    energy -= leapsNr;
-    if (energy < AnimalConstants::ZERO_ENERGY)
-        energy = AnimalConstants::ZERO_ENERGY;
-    lifeTime++;
+    // fullness -= ((float)digestionRate / AnimalConstants::NUMBER_OF_PERCENTS) * maxFullness;
+    // if (fullness < AnimalConstants::ZERO_FULLNESS)
+    //     fullness = AnimalConstants::ZERO_FULLNESS;
+    // energy -= leapsNr;
+    // if (energy < AnimalConstants::ZERO_ENERGY)
+    //     energy = AnimalConstants::ZERO_ENERGY;
+    // lifeTime++;
 }
 
 //helpers

@@ -32,7 +32,7 @@ class Animal : public Subject {
         void thisTurn(AreaMap &areaMap, bool reproductionPeriod,
                 Coordinates &consumedSubjectPosition, Coordinates &childPosition);  //main function deciding what to do
         Target determineTarget(bool reproductionPeriod);
-        bool move(AreaMap &areaMap, Coordinates targetPosition, Target target);
+        bool oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target target);
         void eat(Coordinates &targetPosition, Coordinates &consumedSubjectPosition);
         void sleep();
         bool putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, Coordinates &childPosition);

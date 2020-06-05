@@ -1,4 +1,7 @@
 
 # ---> CPP/C 
+build/
+cmake-build-debug/
 bin/
 *.out
+

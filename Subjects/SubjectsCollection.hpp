@@ -7,7 +7,6 @@
 #include "../Graphics/MainWindow.hpp"
 #include "../AreaMap.hpp"
 #include <vector>
-// #include <map>
 
 class SubjectsCollection {
     private:
@@ -15,7 +14,6 @@ class SubjectsCollection {
         std::vector<Herbivore*> herbivoresCollection;
         std::vector<Predator*> predatorsCollection;
         AreaMap areaMap;
-        //std::map<Coordinates, Subject*> areaMap;
 
         SubjectsCollection() {AreaMap &areaMap = AreaMap::getInstance();}
         SubjectsCollection(const SubjectsFactory&) = delete;

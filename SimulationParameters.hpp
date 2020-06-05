@@ -60,8 +60,8 @@ class SimulationParameters {
                         VIEW_SIZE = stoi(variableValue);
                 }
             }
-            else{
-                cout << "Problem z otwarciem pliku konfiguracyjnego" << endl;
+            else {
+                cout << "Error with open configuration file" << endl;
             }
             configFile.close();
         }
