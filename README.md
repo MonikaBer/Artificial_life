@@ -2,26 +2,17 @@
 Program to simulate artificial life.
 
 ## Tools
-C++, make, SDL2
+C++, cmake, SDL2
 
 ## Usage
 
-### To compile and execute program
+### To compile and execute program / tests
 
 ```bash
+mkdir build
+cd build
+cmake ..
 make
-./a.out
-```
-
-### To compile and execute tests
-
-```bash
-make test
-./test.out --log_level=test_suite 
-```
-
-### To clean working directory
-
-```bash
-make clean
+./artificial_life 
+./tests
 ```
