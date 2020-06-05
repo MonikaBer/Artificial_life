@@ -8,19 +8,23 @@ vector<Coordinates> AreaMap::returnFreeAdjacentPositions(Coordinates position) {
     vector<Coordinates> freePositions;
     map<Coordinates, Subject*>::iterator it;
     Coordinates checkedPosition = make_pair(-1, -1);
-    
+
     for (checkedPosition.first = position.first-1; checkedPosition.first <= position.first+1; ++checkedPosition.first) {
         for (checkedPosition.second = position.second-1; checkedPosition.second <= position.second+1; ++checkedPosition.second) {
             if (checkedPosition.first == position.first && checkedPosition.second == position.second)
                 continue;
-            it = (*this).find(checkedPosition);
-            if (it != (*this).end())  //checkedPosition is occupied
-                continue;
-            //checkedPosition is free
-            freePositions.push_back(checkedPosition);
+            it = this->find(checkedPosition);
+            if (it == this->end() && !this->isProhibitedPosition(checkedPosition))  //checkedPosition is free
+                freePositions.push_back(checkedPosition);
         }
     }
     return freePositions;
+}
+
+bool AreaMap::isProhibitedPosition(Coordinates checkedPosition) {
+    if (checkedPosition.first < 0 || checkedPosition.second < 0 || checkedPosition.first >= this->width || checkedPosition.second >= this->height )
+        return true;
+    return false;
 }
 
 void AreaMap::insert(Coordinates position, Subject* sub) {

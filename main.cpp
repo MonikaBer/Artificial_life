@@ -6,7 +6,7 @@
 
 using namespace std;
 
-SimulationParameters par("configure.txt");
+SimulationParameters par("../configure.txt");
 
 int AREA_SIZE = par.getAreaSize();
 int WINDOW_WIDTH = par.getWindowWidth();
@@ -86,7 +86,7 @@ int main()
             }
 		}
         if (!simulationPaused){
-            collection.subjectsRound(reproductionPeriod);
+            collection.subjectsRound(reproductionPeriod, MAX_LIFE_TIME, VIEW_SIZE);
 
             //increase number of plants to NUMBER_OF_TYPICAL_PLANTS
             for (int i = 0; i < NUMBER_OF_TYPICAL_PLANTS - collection.getPlantsNumber(); ++i)

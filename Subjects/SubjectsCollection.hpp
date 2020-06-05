@@ -35,7 +35,7 @@ class SubjectsCollection {
         void deleteHerbivore(Coordinates herbPosition);
         //void delete Plant(int plantIndex);                //usefulness depends on assumption that plant has lifeTime
         void deletePlant(Coordinates plantPosition);
-        void subjectsRound(bool reproductionPeriod);
+        void subjectsRound(bool reproductionPeriod, int maxLifeTime, int viewSize);
         
         //getters
         int getPlantsNumber();

@@ -32,6 +32,10 @@ class Subject {
             return position.second;
         }
 
+        Coordinates getPosition() {
+            return position;
+        }
+
         bool isToDelete() {
             return toDelete;
         }

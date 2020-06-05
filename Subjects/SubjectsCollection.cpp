@@ -133,13 +133,16 @@ void SubjectsCollection::deletePlant(Coordinates plantPosition) {
     areaMap.erase(it);
 }
 
-void SubjectsCollection::subjectsRound(bool reproductionPeriod)
+void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime, int viewSize)
 {
+    Coordinates partnerPosition = make_pair(-1, -1);
     Coordinates consumedSubjectPosition = make_pair(-1, -1);
     Coordinates childPosition = make_pair(-1, -1);
+    map<Coordinates, Subject*>::iterator parent1;
+    map<Coordinates, Subject*>::iterator parent2;
 
     for (int predIndex = 0; predIndex != predatorsCollection.size(); predIndex++) {
-        predatorsCollection[predIndex]->thisTurn(areaMap, reproductionPeriod, consumedSubjectPosition, childPosition);
+        predatorsCollection[predIndex]->thisTurn(areaMap, reproductionPeriod, partnerPosition, consumedSubjectPosition, childPosition);
         if (predatorsCollection[predIndex]->isToDelete()) {
             deletePredator(predIndex);
             predIndex--;
@@ -147,16 +150,25 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod)
         }
         if (consumedSubjectPosition.first != -1 && consumedSubjectPosition.second != -1){ //some herbivore was consumed
             deleteHerbivore(consumedSubjectPosition);
-            consumedSubjectPosition.first = -1;
-            consumedSubjectPosition.second = -1;
         }
         if (childPosition.first != -1 && childPosition.second != -1) {
             //add child to areaMap and to predatorsCollection
+            Predator *predatorChild = new Predator(childPosition.first, childPosition.second, maxLifeTime, viewSize);
+            parent1 = areaMap.find(predatorsCollection[predIndex]->getPosition());
+            parent2 = areaMap.find(partnerPosition);
+            predatorChild->mixAttributes(dynamic_cast<Animal*>(parent1->second), dynamic_cast<Animal*>(parent2->second));
+            this->push(predatorChild);
         }
+        partnerPosition.first = -1;
+        partnerPosition.second = -1;
+        consumedSubjectPosition.first = -1;
+        consumedSubjectPosition.second = -1;
+        childPosition.first = -1;
+        childPosition.second = -1;
     }
 
     for (int herbIndex = 0; herbIndex != herbivoresCollection.size(); herbIndex++) {
-        herbivoresCollection[herbIndex]->thisTurn(areaMap, reproductionPeriod, consumedSubjectPosition, childPosition);
+        herbivoresCollection[herbIndex]->thisTurn(areaMap, reproductionPeriod,  partnerPosition, consumedSubjectPosition, childPosition);
         if (herbivoresCollection[herbIndex]->isToDelete()) {
             deleteHerbivore(herbIndex);
             herbIndex--;
@@ -164,12 +176,18 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod)
         }
         if (consumedSubjectPosition.first != -1 && consumedSubjectPosition.second != -1){ //some plant was consumed
             deletePlant(consumedSubjectPosition);
-            consumedSubjectPosition.first = -1;
-            consumedSubjectPosition.second = -1;
         }
         if (childPosition.first != -1 && childPosition.second != -1) {
             //add child to areaMap and to herbivoresCollection
+            Herbivore *herbivoreChild = new Herbivore(childPosition.first, childPosition.second, maxLifeTime, viewSize);
+            this->push(herbivoreChild);
         }
+        partnerPosition.first = -1;
+        partnerPosition.second = -1;
+        consumedSubjectPosition.first = -1;
+        consumedSubjectPosition.second = -1;
+        childPosition.first = -1;
+        childPosition.second = -1;
     }
 }
 

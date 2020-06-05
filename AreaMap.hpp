@@ -24,6 +24,7 @@ class AreaMap {
         }
 
         std::vector<Coordinates> returnFreeAdjacentPositions(Coordinates position);
+        bool isProhibitedPosition(Coordinates checkedPosition);
 
         void insert(Coordinates position, Subject* sub);
         std::map<Coordinates, Subject*>::iterator find(Coordinates position);

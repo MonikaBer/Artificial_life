@@ -9,6 +9,8 @@
 typedef std::pair<int, int> Coordinates;
 
 std::vector<float> countDistancesFromTarget(Coordinates targetPosition, std::vector<Coordinates> freePositions);
+bool isVisibleForAnimal(Coordinates animalPosition, Coordinates anotherPosition);
+
 extern int AREA_SIZE;
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
