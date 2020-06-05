@@ -26,8 +26,8 @@ Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subj
 void Animal::thisTurn(const AreaMap &areaMap, bool reproductionPeriod,
         Coordinates &consumedSubjectPosition, Coordinates &childPosition) {
 
-    Target target = determineTarget(reproductionPeriod);
-    if (target == DEAD) {
+    Target target = determineTarget(reproductionPeriod);    //decide what to do
+    if (target == DEAD) {   //too bad crucial vital parameters (energy, fullness or lifeTime)
         toDelete = true;
         return;
     }
@@ -38,22 +38,22 @@ void Animal::thisTurn(const AreaMap &areaMap, bool reproductionPeriod,
 
     if (target == PARTNER) {
         if (isTargetEncountered) {
-            putChildOnPosition(areaMap, targetPosition, childPosition);
+            putChildOnPosition(areaMap, targetPosition, childPosition);  //reproduce with partner
         } else {
-            leapsNr = move(areaMap, targetPosition, target);
+            leapsNr = move(areaMap, targetPosition, target);    //go to partner
         }
     } else if (target == FOOD) {
         if (isTargetEncountered) {
-            eat(targetPosition, consumedSubjectPosition);
+            eat(targetPosition, consumedSubjectPosition);     //set position of consumed food
         } else {
-            leapsNr = move(areaMap, targetPosition, target);
+            leapsNr = move(areaMap, targetPosition, target);  //go to food
         }
     } else if (target == SLEEP) {
-        sleep();
+        sleep();                                            //increase energy
     } else if (target == ESCAPE || target == NEUTRAL) {
-        leapsNr = move(areaMap, targetPosition, target);
+        leapsNr = move(areaMap, targetPosition, target);    //escape or go anywhere
     }
-    updateParameters(leapsNr);
+    updateParameters(leapsNr);  //decrease energy, fullness and increase lifeTime
 }
 
 Target Animal::determineTarget(bool reproductionPeriod) {
