@@ -8,7 +8,7 @@ bool SubjectsCollection::push(Plant *sub)
 {
     Coordinates tmpPair = make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
-        this->areaMap.insert({tmpPair, sub});
+        this->areaMap.insert(tmpPair, sub);
         this->plantsCollection.push_back(sub);
         return true;  //success - plant added
     }
@@ -19,7 +19,7 @@ bool SubjectsCollection::push(Herbivore *sub)
 {
     Coordinates tmpPair = make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
-        this->areaMap.insert({tmpPair, sub});
+        this->areaMap.insert(tmpPair, sub);
         this->herbivoresCollection.push_back(sub);
         return true;  //success - herbivore added
     }
@@ -30,7 +30,7 @@ bool SubjectsCollection::push(Predator *sub)
 {
     Coordinates tmpPair = make_pair(sub->getXPosition(), sub->getYPosition());
     if (areaMap.count(tmpPair) == 0){
-        this->areaMap.insert({tmpPair, sub});
+        this->areaMap.insert(tmpPair, sub);
         this->predatorsCollection.push_back(sub);
         return true;  //success - predator added
     }
@@ -76,6 +76,7 @@ void SubjectsCollection::deletePredator(int predIndex) {
     //delete from map
     map<Coordinates, Subject*>::iterator it = areaMap.find(predPosition);
     delete (*it).second;
+    //delete from map
     areaMap.erase(it);
 }
 
@@ -87,6 +88,7 @@ void SubjectsCollection::deleteHerbivore(int herbIndex) {
     //delete from map
     map<Coordinates, Subject*>::iterator it = areaMap.find(herbPosition);
     delete (*it).second;
+    //delete from map
     areaMap.erase(it);
 }
 
@@ -100,8 +102,8 @@ void SubjectsCollection::deleteHerbivore(Coordinates herbPosition) {
             break;
         }
     }
-    //delete from map
     delete (*it).second;
+    //delete from map
     areaMap.erase(it);
 }
 
@@ -110,9 +112,9 @@ void SubjectsCollection::deleteHerbivore(Coordinates herbPosition) {
 //                                         plantsCollection[plantIndex]->getYPosition());
 //    //delete from collection
 //    plantsCollection.erase(plantsCollection.begin() + plantIndex);
-//    //delete from map
 //    map<Coordinates, Subject*>::iterator it = areaMap.find(plantPosition);
-//    delete (*it).second;
+    //   delete (*it).second;
+    //   delete from map
 //    areaMap.erase(it);
 //}
 
@@ -126,8 +128,8 @@ void SubjectsCollection::deletePlant(Coordinates plantPosition) {
             break;
         }
     }
-    //delete from map
     delete (*it).second;
+    //delete from map
     areaMap.erase(it);
 }
 
@@ -137,7 +139,7 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod)
     Coordinates childPosition = make_pair(-1, -1);
 
     for (int predIndex = 0; predIndex != predatorsCollection.size(); predIndex++) {
-        predatorsCollection[predIndex]->thisTurn(reproductionPeriod, consumedSubjectPosition, childPosition);
+        predatorsCollection[predIndex]->thisTurn(areaMap, reproductionPeriod, consumedSubjectPosition, childPosition);
         if (predatorsCollection[predIndex]->isToDelete()) {
             deletePredator(predIndex);
             predIndex--;
@@ -154,7 +156,7 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod)
     }
 
     for (int herbIndex = 0; herbIndex != herbivoresCollection.size(); herbIndex++) {
-        herbivoresCollection[herbIndex]->thisTurn(reproductionPeriod, consumedSubjectPosition, childPosition);
+        herbivoresCollection[herbIndex]->thisTurn(areaMap, reproductionPeriod, consumedSubjectPosition, childPosition);
         if (herbivoresCollection[herbIndex]->isToDelete()) {
             deleteHerbivore(herbIndex);
             herbIndex--;
@@ -169,22 +171,14 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod)
             //add child to areaMap and to herbivoresCollection
         }
     }
-
-    // vector<Predator*>::iterator predIter;
-    // vector<Herbivore*>::iterator herbIter;
-    // for (predIter = predatorsCollection.begin(), herbIter = herbivoresCollection.begin(); 
-        //predIter != predatorsCollection.end() || herbIter != herbivoresCollection.end(); )
-    // {
-    //     if (predIter != predatorsCollection.end()) {
-    //         (*predIter)->thisTurn(reproductionPeriod, animalToDelete, consumedSubjectPosition);
-    //         predIter++;
-    //     }
-    //     if (herbIter != herbivoresCollection.end()) {
-    //         (*herbIter)->thisTurn(reproductionPeriod, animalToDelete, consumedSubjectPosition);
-    //         herbIter++;
-    //     }
 }
 
+//getters
 int SubjectsCollection::getPlantsNumber() {
     return plantsCollection.size();
+}
+
+//setters
+void SubjectsCollection::setSizeOfAreaMap(int newWidth, int newHeight) {
+    areaMap.setSize(newWidth, newHeight);
 }

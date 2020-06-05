@@ -37,6 +37,7 @@ int main()
     SubjectsFactory &factory = SubjectsFactory::getInstance();
 
     SubjectsCollection &collection = SubjectsCollection::getInstance();
+    collection.setSizeOfAreaMap(WINDOW_WIDTH, WINDOW_HEIGHT);
     Subject *pom = nullptr;
     for (int i = 0; i < NUMBER_OF_TYPICAL_PLANTS; ++i)
     {

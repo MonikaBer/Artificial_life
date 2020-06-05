@@ -6,7 +6,7 @@
 Predator::Predator(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : 
   Animal(x, y, maxLifeTimeSetting, viewSizeSetting) {}
 
-bool Predator::lookAround(Coordinates &targetPosition, Target &target) {
+bool Predator::lookAround(const AreaMap &areaMap, Coordinates &targetPosition, Target &target) {
     
     return true;  //target is encountered
 }

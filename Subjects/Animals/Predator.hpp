@@ -9,7 +9,7 @@ class Predator : public Animal {
         Predator(int x, int y, int maxLifeTimeSetting, int viewSizeSetting);
         ~Predator() {}
 
-        bool lookAround(Coordinates &targetPosition, Target &target);
+        bool lookAround(const AreaMap &areaMap, Coordinates &targetPosition, Target &target);
 };
 
 #endif

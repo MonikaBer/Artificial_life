@@ -8,7 +8,7 @@ Herbivore::Herbivore(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) 
     caloricity = 1.0;      
 }
 
-bool Herbivore::lookAround(Coordinates &targetPosition, Target &target) {
+bool Herbivore::lookAround(const AreaMap &areaMap, Coordinates &targetPosition, Target &target) {
 
     return true;  //target is encountered
 }

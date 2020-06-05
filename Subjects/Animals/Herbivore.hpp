@@ -12,7 +12,7 @@ class Herbivore : public Animal {
         Herbivore(int x, int y, int maxLifeTimeSetting, int viewSizeSetting);
         ~Herbivore() {}
 
-        bool lookAround(Coordinates &targetPosition, Target &target);
+        bool lookAround(const AreaMap &areaMap, Coordinates &targetPosition, Target &target);
 };
 
 #endif

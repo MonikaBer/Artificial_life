@@ -5,18 +5,19 @@
 
 #include "SubjectsFactory.hpp"
 #include "../Graphics/MainWindow.hpp"
-#include "../helper.hpp"
+#include "../AreaMap.hpp"
 #include <vector>
-#include <map>
+// #include <map>
 
 class SubjectsCollection {
     private:
         std::vector<Plant*> plantsCollection;
         std::vector<Herbivore*> herbivoresCollection;
         std::vector<Predator*> predatorsCollection;
-        std::map<Coordinates, Subject*> areaMap;
+        AreaMap areaMap;
+        //std::map<Coordinates, Subject*> areaMap;
 
-        SubjectsCollection(){}
+        SubjectsCollection() {AreaMap &areaMap = AreaMap::getInstance();}
         SubjectsCollection(const SubjectsFactory&) = delete;
         SubjectsCollection& operator=(const SubjectsCollection&) = delete;
     public:
@@ -37,7 +38,12 @@ class SubjectsCollection {
         //void delete Plant(int plantIndex);                //usefulness depends on assumption that plant has lifeTime
         void deletePlant(Coordinates plantPosition);
         void subjectsRound(bool reproductionPeriod);
+        
+        //getters
         int getPlantsNumber();
+
+        //setters
+        void setSizeOfAreaMap(int newWidth, int newHeight);
     };
 
 #endif

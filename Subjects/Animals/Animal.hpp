@@ -4,6 +4,7 @@
 #define ANIMAL_HPP
 #include "../../helper.hpp"
 #include "../Subject.hpp"
+#include "../../AreaMap.hpp"
 
 typedef enum {FOOD, PARTNER, SLEEP, ESCAPE, NEUTRAL, DEAD} Target;
 
@@ -29,25 +30,51 @@ class Animal : public Subject {
         Animal(int x, int y, int maxLifeTime, int viewSize);
         virtual ~Animal(){}
 
-        void thisTurn(bool reproductionPeriod, Coordinates &consumedSubjectPosition, Coordinates &childPosition);  //main function deciding what to do
+        void thisTurn(const AreaMap &areaMap, bool reproductionPeriod,
+                Coordinates &consumedSubjectPosition, Coordinates &childPosition);  //main function deciding what to do
         Target determineTarget(bool reproductionPeriod);
-        int move(Coordinates targetPosition, Target target);
-        void eat(Coordinates &consumedSubjectPosition);
+        int move(const AreaMap &areaMap, Coordinates targetPosition, Target target);
+        void eat(Coordinates &targetPosition, Coordinates &consumedSubjectPosition);
         void sleep();
-        void reproduce(Coordinates targetPosition, Coordinates &childPosition);
+        void putChildOnPosition(const AreaMap &areaMap, Coordinates &targetPosition, Coordinates &childPosition);
+        void mixAttributes(const Animal &firstParent, const Animal &secondParent);
         void updateParameters(int leapsNr);
 
-        int getEnergy();
-        int getFullness(); 
-        int getLifeTime();
-        int getVelocity();
-        int getDigestionRate();
-        int getMaxEnergy();
-        int getMaxFullness();
-        int getMaxLifeTime();
-        int getViewSize();
+        //helpers
+        int generateMaxEnergy();
+        int generateMaxFullness();
+        int generateVelocity();
+        int generateDigestionRate();
+        int countChildAttribute(int firstParentAttr, int secondParentAttr) const;
+        bool isMutation();
+        void setChildMaxEnergy(int newMaxEnergy);
+        void setChildMaxFullness(int newMaxFullness);
+        void setChildVelocity(int newVelocity);
+        void setChildDigestionRate(int newDigestionRate);
 
-        virtual bool lookAround(Coordinates &targetPosition, Target &target) = 0;
+        //getters
+        int getEnergy() const;
+        int getFullness() const; 
+        int getLifeTime() const;
+        int getVelocity() const;
+        int getDigestionRate() const;
+        int getMaxEnergy() const;
+        int getMaxFullness() const;
+        int getMaxLifeTime() const;
+        int getViewSize() const;
+
+        //setters
+        void setFullness(int newFullness);
+        // void setLifeTime(int newLifeTme);
+        void setEnergy(int newEnergy);
+        void setVelocity(int newVelocity);
+        void setDigestionRate(int newDigestionRate);
+        void setMaxEnergy(int newMaxEnergy);
+        void setMaxFullness(int newMaxFullness); 
+        // void setMaxLifeTime(int newMaxLifeTime);
+        // void setViewSize(int newViewSize);
+
+        virtual bool lookAround(const AreaMap &areaMap, Coordinates &targetPosition, Target &target) = 0;
 };
 
 #endif
