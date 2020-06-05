@@ -8,9 +8,7 @@
 
 typedef std::pair<int, int> Coordinates;
 
-<<<<<<< HEAD
 std::vector<float> countDistancesFromTarget(Coordinates targetPosition, std::vector<Coordinates> freePositions);
-=======
 extern int AREA_SIZE;
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
@@ -29,6 +27,5 @@ extern int NUMBER_OF_PREDATORS;
 extern int MAX_LIFE_TIME;
 extern int VIEW_SIZE;
 
->>>>>>> 037696c2a130284ff330717654a208c8cf9833cf
 
 #endif
