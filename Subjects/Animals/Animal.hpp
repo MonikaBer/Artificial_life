@@ -15,7 +15,7 @@ class Animal : public Subject {
         int lifeTime;          //number of motions done
         
         //variables which don't depend on time
-        int velocity;        //number of leaps per one motion (?the smaller the faster??)
+        int velocity;        //number of leaps per one motion
         int digestionRate;   //amount of fullness which is lost per each motion
         int maxEnergy;
         int maxFullness;
@@ -24,19 +24,20 @@ class Animal : public Subject {
         int maxLifeTime;       //max number of motions
         int viewSize;          //field of view is a square and viewSize is its side
         //end of user settings
+        int afterReproduction;
 
     public:
         Animal(int x, int y, int maxLifeTime, int viewSize);
         virtual ~Animal(){}
 
-        void thisTurn(AreaMap &areaMap, bool reproductionPeriod,
+        void thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &partnerPosition,
                 Coordinates &consumedSubjectPosition, Coordinates &childPosition);  //main function deciding what to do
         Target determineTarget(bool reproductionPeriod);
         bool oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target target);
         void eat(Coordinates &targetPosition, Coordinates &consumedSubjectPosition);
         void sleep();
         bool putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, Coordinates &childPosition);
-        void mixAttributes(const Animal &firstParent, const Animal &secondParent);
+        void mixAttributes(Animal *firstParent, Animal *secondParent);
         void updateParameters(int leapsNr);
 
         //helpers
@@ -50,6 +51,8 @@ class Animal : public Subject {
         void setChildMaxFullness(int newMaxFullness);
         void setChildVelocity(int newVelocity);
         void setChildDigestionRate(int newDigestionRate);
+        bool isVisibleForAnimal(Coordinates anotherPosition);
+        bool isEncountered(Coordinates position);
 
         //getters
         int getEnergy() const;
@@ -74,7 +77,8 @@ class Animal : public Subject {
         // void setViewSize(int newViewSize);
         void printInfo();
 
-        virtual bool lookAround(const AreaMap &areaMap, Coordinates &targetPosition, Target &target) = 0;
+        virtual bool lookAround(AreaMap &areaMap, Coordinates &targetPosition, Target &target,
+                bool reproductionPeriod) = 0;
 };
 
 #endif
