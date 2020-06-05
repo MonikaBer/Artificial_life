@@ -2,18 +2,21 @@
 //Base class for all kind of creatures living in artificial world
 #ifndef SUBJECT_HPP
 #define SUBJECT_HPP
+#include <utility>
+#include "../helper.hpp"
+
+typedef enum {PREDATOR, HERBIVORE, TYPICAL_PLANT, SUPER_PLANT} SubjectType;
 
 class Subject {
     protected:
-        int xPosition;
-        int yPosition;
+        Coordinates position;
         bool toDelete;  //is (or not) subject to delete
+        SubjectType type;
     
     public:
         Subject(int x, int y)
         {
-            xPosition = x;
-            yPosition = y;
+            position = std::make_pair(x, y);
             toDelete = false;
         }
 
@@ -21,16 +24,24 @@ class Subject {
         
         int getXPosition()
         {
-            return xPosition;
+            return position.first;
         }
         
         int getYPosition()
         {
-            return yPosition;
+            return position.second;
         }
 
         bool isToDelete() {
             return toDelete;
+        }
+
+        void setType(SubjectType subType) {
+            type = subType;
+        }
+
+        SubjectType getType() {
+            return type;
         }
 };
 
