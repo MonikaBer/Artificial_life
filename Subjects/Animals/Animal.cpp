@@ -79,9 +79,13 @@ Target Animal::determineTarget(bool reproductionPeriod) {
 
 int Animal::move(const AreaMap &areaMap, Coordinates targetPosition, Target target) { // targetPosition = (-1, -1) -> there is no target
     int leapsNumber = 0;
-//    if (target == ) {
-//
-//    }
+   if (target == PARTNER || target == FOOD) {
+
+   } else (target == ESCAPE) {
+
+   } (target == NEUTRAL) {
+       
+   }
 
     return leapsNumber;     //returns traveled distance
 }
