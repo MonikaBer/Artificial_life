@@ -3,9 +3,12 @@
 #ifndef HELPER_HPP
 #define HELPER_HPP
 #include <utility>
+#include <vector>
+
 
 typedef std::pair<int, int> Coordinates;
 
+std::vector<float> countDistancesFromTarget(Coordinates targetPosition, std::vector<Coordinates> freePositions);
 extern int AREA_SIZE;
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;

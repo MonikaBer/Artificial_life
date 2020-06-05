@@ -3,6 +3,8 @@
 #include <ctime>
 #include <cstdlib>
 #include <math.h>
+#include <vector>
+#include <algorithm>
 #include "Animal.hpp"
 #include "AnimalConstants.hpp"
 
@@ -10,10 +12,10 @@ using namespace std;
 
 
 Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
-    maxEnergy = generateMaxEnergy();               //rand from 50 to 150
-    maxFullness = generateMaxFullness();           //rand from 50 to 150
-    velocity = generateVelocity();              //rand from 1 to 3
-    digestionRate = generateDigestionRate();    //rand from 5 to 10 (in percents of maxFullness)
+    maxEnergy = generateMaxEnergy();                //rand from 50 to 150
+    maxFullness = generateMaxFullness();            //rand from 50 to 150
+    velocity = generateVelocity();                  //rand from 1 to 3
+    digestionRate = generateDigestionRate();        //rand from 5 to 10 (in percents of maxFullness)
 
     energy = maxEnergy;
     fullness = maxFullness;
@@ -23,37 +25,65 @@ Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subj
     viewSize = viewSizeSetting;
 }
 
-void Animal::thisTurn(const AreaMap &areaMap, bool reproductionPeriod,
+void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod,
         Coordinates &consumedSubjectPosition, Coordinates &childPosition) {
-
+    
     Target target = determineTarget(reproductionPeriod);    //decide what to do
     if (target == DEAD) {   //too bad crucial vital parameters (energy, fullness or lifeTime)
         toDelete = true;
         return;
     }
 
-    int leapsNr = 0;
-    Coordinates targetPosition = make_pair(-1, -1);
-    bool isTargetEncountered = lookAround(areaMap, targetPosition, target);     // target could changed
+    int leapsNumber = 0;
+    Coordinates targetPosition = make_pair(-1, -1);  
+    bool isTargetEncountered = false;
+    
+    for (; leapsNumber < this->velocity; ++leapsNumber) {
+        isTargetEncountered = lookAround(areaMap, targetPosition, target);     // target could changed
 
-    if (target == PARTNER) {
-        if (isTargetEncountered) {
-            putChildOnPosition(areaMap, targetPosition, childPosition);  //reproduce with partner
-        } else {
-            leapsNr = move(areaMap, targetPosition, target);    //go to partner
+        if (target == PARTNER) {
+            if (isTargetEncountered) {  //reproduce with partner
+                if (putChildOnPosition(areaMap, targetPosition, childPosition)) {  //successfully child creation
+                    //!TODO: prohibit reproduction in this reproductionPeriod
+                    //set some flag    
+                } 
+                leapsNumber++;
+                break;  //after trial of reproduction this animal waits for the next turn
+            } else {    //go to partner
+                if (move(areaMap, targetPosition, target)) {  //successful motion   
+                    leapsNumber++;
+                } else {                 //all adjacent positions occupied, so go sleep and finished this turn
+                    sleep();
+                    break;
+                }
+            }
+        } else if (target == FOOD) {
+            if (isTargetEncountered) {
+                eat(targetPosition, consumedSubjectPosition);     //set position of consumed food
+                leapsNumber++;
+                break;          //after eating this animal waits for the next turn
+            } else {  //go to food
+                if (move(areaMap, targetPosition, target)) {  //successfully motion
+                    leapsNumber++;
+                } else {  //all adjacent positions occupied, so go sleep and finished this turn
+                    sleep();
+                    break;
+                }
+            }
+        } else if (target == SLEEP) {   //sleep lasts whole turn
+            sleep(); 
+            break;                                           //increase energy
+        } else if (target == ESCAPE || target == NEUTRAL) {  //escape or go anywhere
+            if (move(areaMap, targetPosition, target)) {    
+                leapsNumber++;
+            } else {  //all adjacent positions occupied, so go sleep and finished this turn
+                sleep();
+                break;
+            }
         }
-    } else if (target == FOOD) {
-        if (isTargetEncountered) {
-            eat(targetPosition, consumedSubjectPosition);     //set position of consumed food
-        } else {
-            leapsNr = move(areaMap, targetPosition, target);  //go to food
-        }
-    } else if (target == SLEEP) {
-        sleep();                                            //increase energy
-    } else if (target == ESCAPE || target == NEUTRAL) {
-        leapsNr = move(areaMap, targetPosition, target);    //escape or go anywhere
     }
-    updateParameters(leapsNr);  //decrease energy, fullness and increase lifeTime
+    
+    updateParameters(leapsNumber);  //decrease energy, fullness and increase lifeTime
 }
 
 Target Animal::determineTarget(bool reproductionPeriod) {
@@ -77,19 +107,6 @@ Target Animal::determineTarget(bool reproductionPeriod) {
     return target;
 }
 
-int Animal::move(const AreaMap &areaMap, Coordinates targetPosition, Target target) { // targetPosition = (-1, -1) -> there is no target
-    int leapsNumber = 0;
-   if (target == PARTNER || target == FOOD) {
-
-   } else (target == ESCAPE) {
-
-   } (target == NEUTRAL) {
-       
-   }
-
-    return leapsNumber;     //returns traveled distance
-}
-
 void Animal::eat(Coordinates &targetPosition, Coordinates &consumedSubjectPosition) {
     consumedSubjectPosition.first = targetPosition.first;
     consumedSubjectPosition.second = targetPosition.second;
@@ -99,8 +116,46 @@ void Animal::sleep() {
     energy += AnimalConstants::PERCENT_OF_REGENERATION * maxEnergy;
 }
 
-void Animal::putChildOnPosition(const AreaMap &areaMap, Coordinates &targetPosition, Coordinates &childPosition) {
-    //put child on position
+bool Animal::putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, Coordinates &childPosition) {
+    //look for free adjacent position
+    Coordinates currentPosition = make_pair(this->xPosition, this->yPosition);
+    vector<Coordinates> freePositions = areaMap.returnFreeAdjacentPositions(currentPosition);
+    if (freePositions.size() == 0) {  //all adjacent position occupied -> child perishs
+        childPosition.first = -1;
+        childPosition.second = -1;
+        return false;
+    }
+    int randIndex = rand() % freePositions.size();  // rand new position to choose
+    childPosition.first = freePositions[randIndex].first;
+    childPosition.second = freePositions[randIndex].second;
+    return true;
+}
+
+bool Animal::move(AreaMap &areaMap, Coordinates targetPosition, Target target) { // targetPosition = (-1, -1) -> there is no target
+    Coordinates currentPosition = make_pair(this->xPosition, this->yPosition);
+    vector<Coordinates> freePositions = areaMap.returnFreeAdjacentPositions(currentPosition);
+    if (freePositions.size() == 0)
+        return false;                                  //adjacent positions are occupied
+    if (target == NEUTRAL) {
+        int randIndex = rand() % freePositions.size();  // rand new position to choose
+        this->xPosition = freePositions[randIndex].first;
+        this->yPosition = freePositions[randIndex].second;
+        return true;  //successfully motion
+    }
+
+    vector<float> distances = countDistancesFromTarget(targetPosition, freePositions);
+    float desiredDistance = -1.0;
+    if (target == PARTNER || target == FOOD) {
+        desiredDistance = *min_element(distances.begin(), distances.end());
+    } else if (target == ESCAPE) {
+        desiredDistance = *max_element(distances.begin(), distances.end());
+    }
+    int selectedPosition = *find(distances.begin(), distances.end(), desiredDistance);
+    this->xPosition = freePositions[selectedPosition].first;
+    this->yPosition = freePositions[selectedPosition].second;
+    //modify areaMap
+
+    return true;  //successfully motion
 }
 
 void Animal::mixAttributes(const Animal &firstParent, const Animal &secondParent) {

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class SimulationParameters{
+class SimulationParameters {
     private:
         ifstream configFile;
         int AREA_SIZE = 10;
