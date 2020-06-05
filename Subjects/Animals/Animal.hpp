@@ -2,7 +2,6 @@
 //virtual base class for animals
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
-#include "../../helper.hpp"
 #include "../Subject.hpp"
 #include "../../AreaMap.hpp"
 
@@ -30,13 +29,13 @@ class Animal : public Subject {
         Animal(int x, int y, int maxLifeTime, int viewSize);
         virtual ~Animal(){}
 
-        void thisTurn(const AreaMap &areaMap, bool reproductionPeriod,
+        void thisTurn(AreaMap &areaMap, bool reproductionPeriod,
                 Coordinates &consumedSubjectPosition, Coordinates &childPosition);  //main function deciding what to do
         Target determineTarget(bool reproductionPeriod);
-        int move(const AreaMap &areaMap, Coordinates targetPosition, Target target);
+        bool move(AreaMap &areaMap, Coordinates targetPosition, Target target);
         void eat(Coordinates &targetPosition, Coordinates &consumedSubjectPosition);
         void sleep();
-        void putChildOnPosition(const AreaMap &areaMap, Coordinates &targetPosition, Coordinates &childPosition);
+        bool putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, Coordinates &childPosition);
         void mixAttributes(const Animal &firstParent, const Animal &secondParent);
         void updateParameters(int leapsNr);
 
