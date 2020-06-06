@@ -7,8 +7,6 @@
 
 typedef enum {PREDATOR, HERBIVORE, TYPICAL_PLANT, SUPER_PLANT} SubjectType;
 
-typedef enum {PREDATOR, HERBIVORE, TYPICAL_PLANT, SUPER_PLANT} SubjectType;
-
 class Subject {
     protected:
         Coordinates position;

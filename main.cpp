@@ -3,8 +3,6 @@
 #include "Subjects/SubjectsCollection.hpp"
 #include "helper.hpp"
 #include "SimulationParameters.hpp"
-#include "EventHandler.hpp"
-#include "Graphics/InfoWindow.hpp"
 
 using namespace std;
 
