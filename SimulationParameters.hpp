@@ -8,22 +8,23 @@
 
 using namespace std;
 
+    int AREA_SIZE = 10;
+    int WINDOW_WIDTH = 640;
+    int WINDOW_HEIGHT = 480;
+    int ONE_CYCLE_SIZE = 100;
+    int SIMULATION_SPEED = 10;
+    int DELAY_TIME = 1000/SIMULATION_SPEED;
+    int REPRODUCTION_FREQUENCY = 50;
+    int REPRODUCTION_PERIOD_LENGTH = 10;
+    int NUMBER_OF_TYPICAL_PLANTS = 40;
+    int NUMBER_OF_HERBIVORES = 10;
+    int NUMBER_OF_PREDATORS = 5;
+    int MAX_LIFE_TIME = 250;
+    int VIEW_SIZE = 100;
+
 class SimulationParameters {
     private:
         ifstream configFile;
-        int AREA_SIZE = 10;
-        int WINDOW_WIDTH = 640;
-        int WINDOW_HEIGHT = 480;
-        int ONE_CYCLE_SIZE = 100;
-        int SIMULATION_SPEED = 10;
-        int DELAY_TIME = 1000/SIMULATION_SPEED;
-        int REPRODUCTION_FREQUENCY = 50;
-        int REPRODUCTION_PERIOD_LENGTH = 10;
-        int NUMBER_OF_TYPICAL_PLANTS = 40;
-        int NUMBER_OF_HERBIVORES = 10;
-        int NUMBER_OF_PREDATORS = 5;
-        int MAX_LIFE_TIME = 250;
-        int VIEW_SIZE = 100;
     public:
         SimulationParameters(string fileName)
         {   string variableName;

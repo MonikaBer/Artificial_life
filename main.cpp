@@ -6,37 +6,20 @@
 
 using namespace std;
 
-SimulationParameters par("../configure.txt");
-
-int AREA_SIZE = par.getAreaSize();
-int WINDOW_WIDTH = par.getWindowWidth();
-int WINDOW_HEIGHT = par.getWindowHeight();
-
-int ONE_CYCLE_SIZE = par.getOneCycleSize();
-int SIMULATION_SPEED = par.getSimulationSpeed();             //number between 1 and 100
-int DELAY_TIME = par.getDelayTime();
-
-int REPRODUCTION_FREQUENCY = par.getReproductionFrequency();       //break between reproduction periods
-int REPRODUCTION_PERIOD_LENGTH = par.getReproductionPeriodLength();    
-
-//starting number of subjects:
-int NUMBER_OF_TYPICAL_PLANTS = par.getNumberOfTypicalPlants();
-int NUMBER_OF_HERBIVORES = par.getNumberOfHerbivores();
-int NUMBER_OF_PREDATORS = par.getNumberOfPredators();
-int MAX_LIFE_TIME = par.getMaxLifeTime();
-int VIEW_SIZE = par.getViewSize();
-
-int main()
+int main(int argc, char *argv[])
 {
-    //SimulationParameters par("configure.txt");
-    //AREA_SIZE = par.getAreaSize();
+    if (argc > 1)
+    {
+        string fName(argv[1]);
+        SimulationParameters par(fName);
+    }
+    
     MainWindow *mainWindow;
     mainWindow = mainWindow->getInstance (WINDOW_WIDTH, WINDOW_HEIGHT, AREA_SIZE, "Artificial Life");
     if (mainWindow == nullptr) {
         cerr << "Problem with creating a window";
         return 0;
     }
-    
     bool quit = false;
     SDL_Event ev;
 
@@ -63,7 +46,6 @@ int main()
         while (!collection.push(dynamic_cast<Predator*>(pom)))
             pom = factory.create(0, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
     }
-
     vector<Subject*>::iterator ite;
     int cycleNumber = 0;
     int mouseX, mouseY;
