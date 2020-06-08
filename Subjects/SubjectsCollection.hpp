@@ -41,6 +41,8 @@ class SubjectsCollection {
         void getSubjectInfoFromPosition(Coordinates pos, int areaSize);
         //getters
         int getPlantsNumber();
+        int getHerbivoresNumber();
+        int getPredatorsNumber();
 
         //setters
         void setSizeOfAreaMap(int newWidth, int newHeight);

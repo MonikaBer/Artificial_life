@@ -196,6 +196,13 @@ int SubjectsCollection::getPlantsNumber() {
     return plantsCollection.size();
 }
 
+int SubjectsCollection::getHerbivoresNumber() {
+    return herbivoresCollection.size();
+}
+
+int SubjectsCollection::getPredatorsNumber() {
+    return predatorsCollection.size();
+}
 //setters
 void SubjectsCollection::setSizeOfAreaMap(int newWidth, int newHeight) {
     areaMap.setSize(newWidth, newHeight);

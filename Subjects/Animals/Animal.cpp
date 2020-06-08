@@ -28,7 +28,6 @@ Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subj
 
 void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &partnerPosition,
         Coordinates &consumedSubjectPosition, Coordinates &childPosition) {
-
     if (!reproductionPeriod)
         this->afterReproduction = false;
 
@@ -96,21 +95,20 @@ Target Animal::determineTarget(bool reproductionPeriod) {
     Target target = NEUTRAL;
     if (fullness == AnimalConstants::ZERO_FULLNESS || energy == AnimalConstants::ZERO_ENERGY || lifeTime == maxLifeTime)
         target = DEAD;
-    else if (!this->afterReproduction && reproductionPeriod && fullness >= AnimalConstants::ESSENTIAL_PERCENT_OF_FULLNESS * maxFullness &&
-                                                    energy >= AnimalConstants::ESSENTIAL_PERCENT_OF_ENERGY * maxEnergy)
-
+    else if (!this->afterReproduction && reproductionPeriod && fullness >= ESSENTIAL_PERCENT_OF_FULLNESS * maxFullness &&
+                                                    energy >= ESSENTIAL_PERCENT_OF_ENERGY * maxEnergy)
         target = PARTNER;
-    else if (this->afterReproduction && fullness >= AnimalConstants::ESSENTIAL_PERCENT_OF_FULLNESS * maxFullness &&
-                                        energy >= AnimalConstants::ESSENTIAL_PERCENT_OF_ENERGY * maxEnergy)
+    else if (this->afterReproduction && fullness >= ESSENTIAL_PERCENT_OF_FULLNESS * maxFullness &&
+                                        energy >= ESSENTIAL_PERCENT_OF_ENERGY * maxEnergy)
         target = SLEEP;
-    else if (fullness < AnimalConstants::ESSENTIAL_PERCENT_OF_FULLNESS * maxFullness)
+    else if (fullness < ESSENTIAL_PERCENT_OF_FULLNESS * maxFullness)
         target = FOOD;
-    else if (energy < AnimalConstants::ESSENTIAL_PERCENT_OF_ENERGY * maxEnergy)
+    else if (energy < ESSENTIAL_PERCENT_OF_ENERGY * maxEnergy)
         target = SLEEP;
-    else if (fullness < AnimalConstants::TEMPERATE_PERCENT_OF_FULLNESS * maxFullness)
+    else if (fullness < TEMPERATE_PERCENT_OF_FULLNESS * maxFullness)
         target = FOOD;
-    else if (energy < AnimalConstants::ESSENTIAL_PERCENT_OF_ENERGY * maxEnergy &&
-                                            fullness > AnimalConstants:: SUFFICIENT_PERCENT_OF_FULLNESS * maxFullness)
+    else if (energy < ESSENTIAL_PERCENT_OF_ENERGY * maxEnergy &&
+                                            fullness > SUFFICIENT_PERCENT_OF_FULLNESS * maxFullness)
         target = SLEEP;
     else
         target = FOOD;
@@ -123,7 +121,7 @@ void Animal::eat(Coordinates &targetPosition, Coordinates &consumedSubjectPositi
 }
 
 void Animal::sleep() {
-    energy += AnimalConstants::PERCENT_OF_REGENERATION * maxEnergy;
+    energy += PERCENT_OF_REGENERATION * maxEnergy;
 }
 
 bool Animal::putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, Coordinates &childPosition) {
