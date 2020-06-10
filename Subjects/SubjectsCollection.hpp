@@ -30,11 +30,9 @@ class SubjectsCollection {
         bool push(Predator *sub);
         void actualizeSubjectsPositionOnScreen(MainWindow* mainWindow);
         void deleteAllSubjects();
-        //void remove(Subject* sub);
         void deletePredator(int predIndex);
         void deleteHerbivore(int herbIndex);
         void deleteHerbivore(Coordinates herbPosition);
-        //void delete Plant(int plantIndex);
         void deletePlant(Coordinates plantPosition);
         void subjectsRound(bool reproductionPeriod, int maxLifeTime, int viewSize);
         
