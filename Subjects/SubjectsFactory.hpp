@@ -12,7 +12,6 @@
 
 class SubjectsFactory {
     private:
-        enum {PREDATOR, HERBIVORE, TYPICAL_PLANT, SUPER_PLANT};
         SubjectsFactory() { srand(time(NULL)); }
         SubjectsFactory(const SubjectsFactory&) = delete;
         SubjectsFactory& operator=(const SubjectsFactory&) = delete;
@@ -23,7 +22,7 @@ class SubjectsFactory {
             return instance;
         }
 
-        Subject* create(int type, int maxX, int maxY, int areaSize, int maxLifeTimeSetting, int viewSizeSetting)
+        Subject* create(SubjectType type, int maxX, int maxY, int areaSize, int maxLifeTimeSetting, int viewSizeSetting)
         {
             std::exception exc;
             Subject *sub = nullptr;
