@@ -37,8 +37,9 @@ target_include_directories(artificial_life PUBLIC ${SDL2_INCLUDE_DIRS})
 
 set(TEST_FILES
         Unit_tests/MasterTestSuite.cpp
+        Unit_tests/factoryTests.cpp
+        Unit_tests/collectionTests.cpp
         Unit_tests/subjectsTests.cpp 
-        Unit_tests/factoryTests.cpp 
 ${SRC_FILES})
 
 add_executable(tests ${TEST_FILES})
