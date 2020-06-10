@@ -10,7 +10,7 @@ typedef enum {PREDATOR, HERBIVORE, TYPICAL_PLANT, SUPER_PLANT} SubjectType;
 class Subject {
     protected:
         Coordinates position;
-        bool toDelete;  //is (or not) subject to delete
+        bool toDelete;                  //if subject to delete
         SubjectType type;
     
     public:

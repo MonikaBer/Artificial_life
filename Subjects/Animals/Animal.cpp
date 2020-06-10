@@ -1,6 +1,5 @@
 //Andrzej Przybylski & Monika Berlinska
 //virtual base class for animals
-#include <ctime>
 #include <iostream>
 #include <cstdlib>
 #include <math.h>
@@ -28,6 +27,7 @@ Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subj
 
 void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &partnerPosition,
         Coordinates &consumedSubjectPosition, Coordinates &childPosition) {
+
     if (!reproductionPeriod)
         this->afterReproduction = false;
 
@@ -76,8 +76,8 @@ void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &pa
                 }
             }
         } else if (target == SLEEP) {   //sleep lasts whole turn
-            sleep(); 
-            break;                                           //increase energy
+            sleep();                    //increase energy
+            break;
         } else if (target == ESCAPE || target == NEUTRAL) {  //escape or go anywhere
             if (oneLeapMove(areaMap, targetPosition, target)) {    
                 leapsNumber++;
@@ -138,7 +138,7 @@ bool Animal::putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, C
     return true;
 }
 
-bool Animal::oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target target) { // targetPosition = (-1, -1) -> there is no target
+bool Animal::oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target target) { // if targetPosition = (-1, -1) -> there is no target
     Coordinates currentPosition = make_pair(this->position.first, this->position.second);
     vector<Coordinates> freePositions = areaMap.returnFreeAdjacentPositions(currentPosition);
     if (freePositions.empty())
@@ -159,7 +159,7 @@ bool Animal::oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target ta
     }
 
     //change animal position (in areaMap too):
-    map<Coordinates, Subject*>::iterator it = areaMap.find(currentPosition);
+    auto it = areaMap.find(currentPosition);
     if (it != areaMap.end()) {
         areaMap.erase(it);  //delete previous position in areaMap
         areaMap.insert(this->position, this);  //add new position to areaMap
@@ -187,7 +187,7 @@ void Animal::updateParameters (int leapsNumber) {  //update fullness, energy and
 //     energy -= leapsNumber;
 //     if (energy < AnimalConstants::ZERO_ENERGY)
 //         energy = AnimalConstants::ZERO_ENERGY;
-     //lifeTime++;
+//     lifeTime++;
 }
 
 //helpers

@@ -1,6 +1,6 @@
 //Andrzej Przybylski & Monika Berlinska
 //accessory types and functions
-#include <math.h>
+#include <cmath>
 #include "helper.hpp"
 
 using namespace std;

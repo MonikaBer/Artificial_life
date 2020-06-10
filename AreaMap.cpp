@@ -9,8 +9,8 @@ vector<Coordinates> AreaMap::returnFreeAdjacentPositions(Coordinates position) {
     map<Coordinates, Subject*>::iterator it;
     Coordinates checkedPosition = make_pair(-1, -1);
 
-    for (checkedPosition.first = position.first-10; checkedPosition.first <= position.first+10; ++checkedPosition.first) {
-        for (checkedPosition.second = position.second-10; checkedPosition.second <= position.second+10; ++checkedPosition.second) {
+    for (checkedPosition.first = position.first; checkedPosition.first <= position.first; ++checkedPosition.first) {
+        for (checkedPosition.second = position.second; checkedPosition.second <= position.second; ++checkedPosition.second) {
             if (checkedPosition.first == position.first && checkedPosition.second == position.second)
                 continue;
             it = this->find(checkedPosition);
@@ -21,9 +21,9 @@ vector<Coordinates> AreaMap::returnFreeAdjacentPositions(Coordinates position) {
     return freePositions;
 }
 
-bool AreaMap::isProhibitedPosition(Coordinates checkedPosition) {
-    return checkedPosition.first < 0 || checkedPosition.second < 0 || checkedPosition.first >= this->width * 10 ||
-           checkedPosition.second >= this->height * 10;
+bool AreaMap::isProhibitedPosition(Coordinates checkedPosition) const {
+    return checkedPosition.first < 0 || checkedPosition.second < 0 || checkedPosition.first >= this->width ||
+           checkedPosition.second >= this->height;
 }
 
 void AreaMap::insert(Coordinates position, Subject* sub) {
@@ -55,17 +55,17 @@ void AreaMap::clear() {
 }
 
 //getters
-map<Coordinates, Subject*> AreaMap::getSubjectsPositions() const {
-    return subjectsPositions;
-}
-
-int AreaMap::getWidth() const {
-    return width;
-}
-
-int AreaMap::getHeight() const {
-    return height;
-}
+//map<Coordinates, Subject*> AreaMap::getSubjectsPositions() const {
+//    return subjectsPositions;
+//}
+//
+//int AreaMap::getWidth() const {
+//    return width;
+//}
+//
+//int AreaMap::getHeight() const {
+//    return height;
+//}
 
 //setters
 void AreaMap::setSize(int newWidth, int newHeight) {

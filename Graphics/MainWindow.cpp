@@ -70,7 +70,7 @@ void MainWindow::createWeb (int areaSize)
 
 void MainWindow::drawTypicalPlant (int x, int y)
 {
-	SDL_Rect plantRect = {x+1, y+1, areaSize-1, areaSize-1};
+	SDL_Rect plantRect = {areaSize*x+1, areaSize*y+1, areaSize-1, areaSize-1};
 	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, 0.5*RendererConstants::MAX_COLOR_VALUE,
 	  RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);
 	SDL_RenderFillRect (renderer, &plantRect);
@@ -78,7 +78,7 @@ void MainWindow::drawTypicalPlant (int x, int y)
 
 void MainWindow::drawSuperPlant (int x, int y)
 {
-	SDL_Rect plantRect = {x+1, y+1, areaSize-1, areaSize-1};
+	SDL_Rect plantRect = {areaSize*x+1, areaSize*y+1, areaSize-1, areaSize-1};
 	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_COLOR_VALUE,
 	  RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);
 	SDL_RenderFillRect (renderer, &plantRect);
@@ -86,7 +86,7 @@ void MainWindow::drawSuperPlant (int x, int y)
 
 void MainWindow::drawHerbivore (int x, int y)
 {
-	SDL_Rect herbRect = {x+1, y+1, areaSize-1, areaSize-1};
+	SDL_Rect herbRect = {areaSize*x+1, areaSize*y+1, areaSize-1, areaSize-1};
 	SDL_SetRenderDrawColor (renderer, RendererConstants::MIN_COLOR_VALUE, RendererConstants::MIN_COLOR_VALUE,
 	  RendererConstants::MAX_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);
 	SDL_RenderFillRect (renderer, &herbRect);
@@ -94,7 +94,7 @@ void MainWindow::drawHerbivore (int x, int y)
 
 void MainWindow::drawPredator (int x, int y)
 {
-	SDL_Rect predRect = {x+1, y+1, areaSize-1, areaSize-1};
+	SDL_Rect predRect = {areaSize*x+1, areaSize*y+1, areaSize-1, areaSize-1};
 	SDL_SetRenderDrawColor (renderer, RendererConstants::MAX_COLOR_VALUE, RendererConstants::MIN_COLOR_VALUE,
 	  RendererConstants::MIN_COLOR_VALUE, RendererConstants::MAX_ALPHA_VALUE);		
 	SDL_RenderFillRect (renderer, &predRect);

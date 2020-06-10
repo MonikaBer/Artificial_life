@@ -22,12 +22,12 @@ class SubjectsFactory {
             return instance;
         }
 
-        Subject* create(SubjectType type, int maxX, int maxY, int areaSize, int maxLifeTimeSetting, int viewSizeSetting)
+        Subject* create(SubjectType type, int maxX, int maxY, int maxLifeTimeSetting, int viewSizeSetting)
         {
             std::exception exc;
             Subject *sub = nullptr;
-            int x = (std::rand() % maxX) * areaSize;
-            int y = (std::rand() % maxY) * areaSize;
+            int x = std::rand() % maxX;
+            int y = std::rand() % maxY;
 
             switch (type)
             {

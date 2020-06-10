@@ -56,9 +56,9 @@ void SubjectsCollection::actualizeSubjectsPositionOnScreen(MainWindow* mainWindo
 
 void SubjectsCollection::deleteAllSubjects()
 {
-    map<Coordinates, Subject*>::iterator it = this->areaMap.begin();
+    auto it = this->areaMap.begin();
 
-    for (it; it != this->areaMap.end(); it++) 
+    for (; it != this->areaMap.end(); it++)
     {
         delete (*it).second;
     }
@@ -74,7 +74,7 @@ void SubjectsCollection::deletePredator(int predIndex) {
     //delete from collection
     predatorsCollection.erase(predatorsCollection.begin() + predIndex);
     //delete from map
-    map<Coordinates, Subject*>::iterator it = areaMap.find(predPosition);
+    auto it = areaMap.find(predPosition);
     delete (*it).second;
     //delete from map
     areaMap.erase(it);
@@ -86,16 +86,16 @@ void SubjectsCollection::deleteHerbivore(int herbIndex) {
     //delete from collection
     herbivoresCollection.erase(herbivoresCollection.begin() + herbIndex);
     //delete from map
-    map<Coordinates, Subject*>::iterator it = areaMap.find(herbPosition);
+    auto it = areaMap.find(herbPosition);
     delete (*it).second;
     //delete from map
     areaMap.erase(it);
 }
 
 void SubjectsCollection::deleteHerbivore(Coordinates herbPosition) {
-    map<Coordinates, Subject*>::iterator it = areaMap.find(herbPosition);
+    auto it = areaMap.find(herbPosition);
     //delete from collection
-    for (vector<Herbivore*>::iterator herbIter = herbivoresCollection.begin();
+    for (auto herbIter = herbivoresCollection.begin();
          herbIter != herbivoresCollection.end(); herbIter++) {
         if ((*herbIter)->getXPosition() == herbPosition.first && (*herbIter)->getYPosition() == herbPosition.second) {
             herbivoresCollection.erase(herbIter);
@@ -119,10 +119,9 @@ void SubjectsCollection::deleteHerbivore(Coordinates herbPosition) {
 //}
 
 void SubjectsCollection::deletePlant(Coordinates plantPosition) {
-    map<Coordinates, Subject*>::iterator it = areaMap.find(plantPosition);
+    auto it = areaMap.find(plantPosition);
     //delete from collection
-    for (vector<Plant*>::iterator plantIter = plantsCollection.begin();
-         plantIter != plantsCollection.end(); plantIter++) {
+    for (auto plantIter = plantsCollection.begin(); plantIter != plantsCollection.end(); plantIter++) {
         if ((*plantIter)->getXPosition() == plantPosition.first && (*plantIter)->getYPosition() == plantPosition.second) {
             plantsCollection.erase(plantIter);
             break;
@@ -143,6 +142,7 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime,
 
     for (int predIndex = 0; predIndex != predatorsCollection.size(); predIndex++) {
         predatorsCollection[predIndex]->thisTurn(areaMap, reproductionPeriod, partnerPosition, consumedSubjectPosition, childPosition);
+        predatorsCollection[predIndex]
         if (predatorsCollection[predIndex]->isToDelete()) {
             deletePredator(predIndex);
             predIndex--;
@@ -153,7 +153,7 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime,
         }
         if (childPosition.first != -1 && childPosition.second != -1) {
             //add child to areaMap and to predatorsCollection
-            Predator *predatorChild = new Predator(childPosition.first, childPosition.second, maxLifeTime, viewSize);
+            auto *predatorChild = new Predator(childPosition.first, childPosition.second, maxLifeTime, viewSize);
             parent1 = areaMap.find(predatorsCollection[predIndex]->getPosition());
             parent2 = areaMap.find(partnerPosition);
             predatorChild->mixAttributes(dynamic_cast<Animal*>(parent1->second), dynamic_cast<Animal*>(parent2->second));
@@ -179,7 +179,7 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime,
         }
         if (childPosition.first != -1 && childPosition.second != -1) {
             //add child to areaMap and to herbivoresCollection
-            Herbivore *herbivoreChild = new Herbivore(childPosition.first, childPosition.second, maxLifeTime, viewSize);
+            auto *herbivoreChild = new Herbivore(childPosition.first, childPosition.second, maxLifeTime, viewSize);
             this->push(herbivoreChild);
         }
         partnerPosition.first = -1;
@@ -208,12 +208,12 @@ void SubjectsCollection::setSizeOfAreaMap(int newWidth, int newHeight) {
     areaMap.setSize(newWidth, newHeight);
 }
 
-void SubjectsCollection::getSubjectInfoFromPosition(Coordinates pos, int areaSize)
+void SubjectsCollection::getSubjectInfoFromPosition(Coordinates pos)
 {
     Subject *tmp = nullptr;
     int x, y;
-    x = (pos.first/areaSize) * areaSize;
-    y = (pos.second/areaSize) * areaSize;
+    x = pos.first;
+    y = pos.second;
     std::map<Coordinates, Subject*>::iterator it;
     for (it = areaMap.begin(); it!= areaMap.end(); ++it)
     {
