@@ -315,6 +315,7 @@ int Animal::getViewSize() const { return this->viewSize; }
 
 //setters
 void Animal::setFullness(int newFullness) { fullness = newFullness; }
+void Animal::setReproductionFlag(bool afterReproduction){this->afterReproduction = afterReproduction};
 //void Animal::setLifeTime(int newLifeTme) { lifeTime = newLifeTime; }
 void Animal::setEnergy(int newEnergy) { energy = newEnergy; }
 void Animal::setVelocity(int newVelocity) { velocity = newVelocity; }

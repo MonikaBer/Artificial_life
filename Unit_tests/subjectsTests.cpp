@@ -57,13 +57,15 @@ BOOST_AUTO_TEST_SUITE(test_suite_subjects);
         tSub->setMaxEnergy(100);
         tSub->setMaxFullness(100);
         tSub->setFullness(100);
+        tSub->afterReproduction
         //check if Target is correctly set on DEAD status
         tSub->setEnergy(0);
         Target tar = tSub->determineTarget(isReproductionPeriod);
         BOOST_CHECK_EQUAL(tar, DEAD);
         //check if Target is correctly set on PARTNER status
         isReproductionPeriod = true;
-        tSub->setEnergy(50);
+        tSub->setEnergy(100);
+        tSub->setFullness(100);
         tar = tSub->determineTarget(isReproductionPeriod);
         BOOST_CHECK_EQUAL(tar, PARTNER);
         //check if Target is correctly set on SLEEP status

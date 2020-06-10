@@ -70,6 +70,7 @@ class Animal : public Subject {
 
         //setters
         void setFullness(int newFullness);
+        void setReproductionFlag(bool afterReproduction);
         // void setLifeTime(int newLifeTme);
         void setEnergy(int newEnergy);
         void setVelocity(int newVelocity);
