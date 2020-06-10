@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
             pom = factory.create(PREDATOR, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
     }
     vector<Subject*>::iterator ite;
-    int cycleNumber = 0;
+    int cycleNumber = 1;
     int mouseX, mouseY;
     bool reproductionPeriod = false;
     bool simulationPaused = false;
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
             if(simulationPaused){
                 if(ev.type == SDL_MOUSEBUTTONDOWN && SDL_GetMouseState(&mouseX, &mouseY))
                 {
-                    collection.getSubjectInfoFromPosition(make_pair(mouseX, mouseY));
+                    collection.getSubjectInfoFromPosition(make_pair(mouseX/AREA_SIZE, mouseY/AREA_SIZE));
                 }
             }
 		}

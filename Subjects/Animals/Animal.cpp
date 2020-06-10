@@ -32,6 +32,7 @@ void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &pa
         this->afterReproduction = false;
 
     Target target = determineTarget(reproductionPeriod);    //decide what to do
+    cout << "target is: " << target << endl;
     if (target == DEAD) {   //too bad crucial vital parameters (energy, fullness or lifeTime)
         toDelete = true;
         return;
@@ -68,6 +69,7 @@ void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &pa
                 leapsNumber++;
                 break;          //after eating this animal waits for the next turn
             } else {  //go to food
+                cout << "Target position: " << targetPosition.first << " " << targetPosition.second << endl;
                 if (oneLeapMove(areaMap, targetPosition, target)) {  //successfully motion
                     leapsNumber++;
                 } else {  //all adjacent positions occupied, so go sleep and finished this turn
@@ -139,11 +141,12 @@ bool Animal::putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, C
 }
 
 bool Animal::oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target target) { // if targetPosition = (-1, -1) -> there is no target
+    cout << "&&&&&&&&&&&" << endl << "oneLeapMove" << endl << "&&&&&&&&&&&" << endl;
     Coordinates currentPosition = make_pair(this->position.first, this->position.second);
     vector<Coordinates> freePositions = areaMap.returnFreeAdjacentPositions(currentPosition);
     if (freePositions.empty())
         return false;                                  //adjacent positions are occupied
-    if (target == NEUTRAL) {
+    if (target == NEUTRAL || targetPosition == make_pair(-1, -1)) {
         int randIndex = rand() % freePositions.size();  // rand new position to choose
         this->position = freePositions[randIndex];
     } else {
@@ -156,6 +159,7 @@ bool Animal::oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target ta
         //int selectedPosition = *find(distances.begin(), distances.end(), desiredDistance);
         //cout << "SelectedPosition: " << selectedPosition << endl;
         this->position = nextPos;
+        cout << "I will go now there: " << position.first << " " << position.second << endl;
     }
 
     //change animal position (in areaMap too):
@@ -181,13 +185,13 @@ void Animal::mixAttributes(Animal *firstParent, Animal *secondParent) {
 }
 
 void Animal::updateParameters (int leapsNumber) {  //update fullness, energy and lifeTime
-//     fullness -= ((float)digestionRate / AnimalConstants::NUMBER_OF_PERCENTS) * maxFullness;
-//     if (fullness < AnimalConstants::ZERO_FULLNESS)
-//         fullness = AnimalConstants::ZERO_FULLNESS;
-//     energy -= leapsNumber;
-//     if (energy < AnimalConstants::ZERO_ENERGY)
-//         energy = AnimalConstants::ZERO_ENERGY;
-//     lifeTime++;
+    fullness -= ((float)digestionRate / AnimalConstants::NUMBER_OF_PERCENTS) * maxFullness;
+    if (fullness < AnimalConstants::ZERO_FULLNESS)
+        fullness = AnimalConstants::ZERO_FULLNESS;
+    energy -= leapsNumber;
+    if (energy < AnimalConstants::ZERO_ENERGY)
+        energy = AnimalConstants::ZERO_ENERGY;
+    lifeTime++;
 }
 
 //helpers

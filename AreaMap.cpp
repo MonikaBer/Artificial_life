@@ -9,8 +9,8 @@ vector<Coordinates> AreaMap::returnFreeAdjacentPositions(Coordinates position) {
     map<Coordinates, Subject*>::iterator it;
     Coordinates checkedPosition = make_pair(-1, -1);
 
-    for (checkedPosition.first = position.first; checkedPosition.first <= position.first; ++checkedPosition.first) {
-        for (checkedPosition.second = position.second; checkedPosition.second <= position.second; ++checkedPosition.second) {
+    for (checkedPosition.first = position.first-1; checkedPosition.first <= position.first+1; ++checkedPosition.first) {
+        for (checkedPosition.second = position.second-1; checkedPosition.second <= position.second+1; ++checkedPosition.second) {
             if (checkedPosition.first == position.first && checkedPosition.second == position.second)
                 continue;
             it = this->find(checkedPosition);
