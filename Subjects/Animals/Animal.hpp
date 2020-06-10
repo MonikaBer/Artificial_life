@@ -26,6 +26,7 @@ class Animal : public Subject {
         //end of user settings
         int afterReproduction;
 
+        Coordinates defaultTarget;
     public:
         Animal(int x, int y, int maxLifeTime, int viewSize);
         virtual ~Animal(){}
@@ -45,6 +46,8 @@ class Animal : public Subject {
         int generateMaxFullness();
         int generateVelocity();
         int generateDigestionRate();
+        Coordinates generateDefaultTarget();
+        Coordinates changeDefaultTarget(Coordinates actualTarget);
         int countChildAttribute(int firstParentAttr, int secondParentAttr) const;
         bool isMutation();
         void setChildMaxEnergy(int newMaxEnergy);

@@ -13,16 +13,19 @@ using namespace std;
 
 Animal::Animal(int x, int y, int maxLifeTimeSetting, int viewSizeSetting) : Subject(x, y) {
     maxEnergy = generateMaxEnergy();                //rand from 50 to 150
-    maxFullness = generateMaxFullness();            //rand from 50 to 150
-    velocity = generateVelocity();                  //rand from 1 to 3
+    maxFullness = generateMaxFullness();            //rand from 50 to 150 for Herbivores, for Predators 100-200
+    velocity = generateVelocity();                  //for Herbivore from 1 to 3, Predators: 2-5
     digestionRate = generateDigestionRate();        //rand from 5 to 10 (in percents of maxFullness)
+    defaultTarget = generateDefaultTarget();
 
     energy = maxEnergy;
     fullness = maxFullness;
     lifeTime = AnimalConstants::ZERO_LIFE_TIME;
 
-    maxLifeTime = maxLifeTimeSetting;              
+    maxLifeTime = maxLifeTimeSetting;
+            
     viewSize = viewSizeSetting;
+
 }
 
 void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &partnerPosition,
@@ -32,7 +35,6 @@ void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &pa
         this->afterReproduction = false;
 
     Target target = determineTarget(reproductionPeriod);    //decide what to do
-    cout << "target is: " << target << endl;
     if (target == DEAD) {   //too bad crucial vital parameters (energy, fullness or lifeTime)
         toDelete = true;
         return;
@@ -69,7 +71,6 @@ void Animal::thisTurn(AreaMap &areaMap, bool reproductionPeriod, Coordinates &pa
                 leapsNumber++;
                 break;          //after eating this animal waits for the next turn
             } else {  //go to food
-                cout << "Target position: " << targetPosition.first << " " << targetPosition.second << endl;
                 if (oneLeapMove(areaMap, targetPosition, target)) {  //successfully motion
                     leapsNumber++;
                 } else {  //all adjacent positions occupied, so go sleep and finished this turn
@@ -118,7 +119,7 @@ Target Animal::determineTarget(bool reproductionPeriod) {
 }
 
 void Animal::eat(Coordinates &targetPosition, Coordinates &consumedSubjectPosition) {
-    this->fullness = this->maxFullness;  //temporary solution
+    this->fullness = this->maxFullness;
     consumedSubjectPosition = targetPosition;
 }
 
@@ -141,25 +142,23 @@ bool Animal::putChildOnPosition(AreaMap &areaMap, Coordinates &targetPosition, C
 }
 
 bool Animal::oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target target) { // if targetPosition = (-1, -1) -> there is no target
-    cout << "&&&&&&&&&&&" << endl << "oneLeapMove" << endl << "&&&&&&&&&&&" << endl;
     Coordinates currentPosition = make_pair(this->position.first, this->position.second);
     vector<Coordinates> freePositions = areaMap.returnFreeAdjacentPositions(currentPosition);
     if (freePositions.empty())
         return false;                                  //adjacent positions are occupied
-    if (target == NEUTRAL || targetPosition == make_pair(-1, -1)) {
-        int randIndex = rand() % freePositions.size();  // rand new position to choose
-        this->position = freePositions[randIndex];
-    } else {
-        Coordinates nextPos;
-        if (target == PARTNER || target == FOOD) {
-            nextPos = countDistancesFromTarget(targetPosition, freePositions, true);
-        } else if (target == ESCAPE) {
-            nextPos = countDistancesFromTarget(targetPosition, freePositions, false);
-        }
-        //int selectedPosition = *find(distances.begin(), distances.end(), desiredDistance);
-        //cout << "SelectedPosition: " << selectedPosition << endl;
-        this->position = nextPos;
-        cout << "I will go now there: " << position.first << " " << position.second << endl;
+    if (targetPosition == make_pair(-1, -1)) targetPosition = this->defaultTarget;
+        
+    Coordinates nextPos;
+    if (target == PARTNER || target == FOOD) {
+        nextPos = countDistancesFromTarget(targetPosition, freePositions, true);
+    } else if (target == ESCAPE) {
+        nextPos = countDistancesFromTarget(targetPosition, freePositions, false);
+    }
+    this->position = nextPos;
+    
+    if (this->position == this->defaultTarget)
+    {
+        defaultTarget = changeDefaultTarget(defaultTarget);
     }
 
     //change animal position (in areaMap too):
@@ -200,15 +199,53 @@ int Animal::generateMaxEnergy() {
 }
 
 int Animal::generateMaxFullness() {
+    if (this->type == HERBIVORE){
+        return (rand() % AnimalConstants::SIZEOF_MAX_FULLNESS_RANGE + AnimalConstants::MIN_MAX_FULLNESS);}
+    if(this->type == PREDATOR ){
+        return (rand() % AnimalConstants::SIZEOF_MAX_FULLNESS_RANGE + 2*AnimalConstants::MIN_MAX_FULLNESS);}
     return (rand() % AnimalConstants::SIZEOF_MAX_FULLNESS_RANGE + AnimalConstants::MIN_MAX_FULLNESS);
+
 }
 
 int Animal::generateVelocity() {
-    return (rand() % AnimalConstants::SIZEOF_VELOCITY_RANGE + AnimalConstants::MIN_VELOCITY);
+    if (type == HERBIVORE)
+        return (rand() % AnimalConstants::SIZEOF_VELOCITY_RANGE_HERBIVORE + AnimalConstants::MIN_VELOCITY_HERBIVORE);
+    if (type == PREDATOR)
+        return (rand() % AnimalConstants::SIZEOF_VELOCITY_RANGE_PREDATOR + AnimalConstants::MIN_VELOCITY_PREDATOR);
+    return (rand() % AnimalConstants::SIZEOF_VELOCITY_RANGE_HERBIVORE + AnimalConstants::MIN_VELOCITY_HERBIVORE);
 }
 
 int Animal::generateDigestionRate() {
     return (rand() % AnimalConstants::SIZEOF_DIGESTION_RATE_RANGE + AnimalConstants::MIN_DIGESTION_RATE);
+}
+
+Coordinates Animal::generateDefaultTarget() {
+    int LeftRight = rand()%2;
+    int UpDown = rand()%2;
+    int x, y;
+    if (LeftRight == 0) x = 0;
+    else x = (WINDOW_WIDTH/AREA_SIZE)-1;
+    if (UpDown == 0) y = 0;
+    else y = (WINDOW_HEIGHT/AREA_SIZE)-1;
+
+    Coordinates res = make_pair(x, y);
+    return res;
+}
+
+Coordinates Animal::changeDefaultTarget(Coordinates actualTarget)
+{
+    int x, y;
+    if (actualTarget.first == 0)
+    { x = (WINDOW_WIDTH/AREA_SIZE)-1;}
+    else 
+    { x = 0;}
+
+    if (actualTarget.second == 0) 
+    {y = (WINDOW_HEIGHT/AREA_SIZE)-1;}
+    else 
+    {y = 0;}
+    Coordinates res = make_pair(x, y);
+    return res;
 }
 
 int Animal::countChildAttribute(int firstParentAttr, int secondParentAttr) const {

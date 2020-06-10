@@ -12,15 +12,15 @@ using namespace std;
     int WINDOW_WIDTH = 640;
     int WINDOW_HEIGHT = 480;
     int ONE_CYCLE_SIZE = 100;
-    int SIMULATION_SPEED = 10;
+    int SIMULATION_SPEED = 1;
     int DELAY_TIME = 1000/SIMULATION_SPEED;
     int REPRODUCTION_FREQUENCY = 50;
     int REPRODUCTION_PERIOD_LENGTH = 10;
-    int NUMBER_OF_TYPICAL_PLANTS = 40;
-    int NUMBER_OF_HERBIVORES = 10;
-    int NUMBER_OF_PREDATORS = 5;
+    int NUMBER_OF_TYPICAL_PLANTS = 200;
+    int NUMBER_OF_HERBIVORES = 100;
+    int NUMBER_OF_PREDATORS = 10;
     int MAX_LIFE_TIME = 250;
-    int VIEW_SIZE = 100;
+    int VIEW_SIZE = 8;
 
 class SimulationParameters {
     private:

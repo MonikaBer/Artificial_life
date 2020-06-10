@@ -16,7 +16,6 @@ Coordinates countDistancesFromTarget(Coordinates targetPosition, vector<Coordina
     Coordinates coordMin;
     Coordinates coordMax;
     for (it = freePositions.begin(); it != freePositions.end(); ++it) {
-        cout << "Free positions coordinates: " << it->first << " " << it->second << endl;
         distance = sqrt((pow(targetPosition.first-(*it).first, 2) + pow(targetPosition.second-(*it).second, 2)));
         if (distance > distanceMax)
         {

@@ -141,7 +141,6 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime,
     map<Coordinates, Subject*>::iterator parent2;
 
     for (int predIndex = 0; predIndex != predatorsCollection.size(); predIndex++) {
-        cout << "Predator: X: " << predatorsCollection[predIndex]->getXPosition() << " Y: " << predatorsCollection[predIndex]->getYPosition() << endl;
         predatorsCollection[predIndex]->thisTurn(areaMap, reproductionPeriod, partnerPosition, consumedSubjectPosition, childPosition);
         if (predatorsCollection[predIndex]->isToDelete()) {
             deletePredator(predIndex);
@@ -165,14 +164,9 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime,
         consumedSubjectPosition.second = -1;
         childPosition.first = -1;
         childPosition.second = -1;
-        cout << endl;
     }
 
     for (int herbIndex = 0; herbIndex != herbivoresCollection.size(); herbIndex++) {
-        cout << "Herbivore: X: " << herbivoresCollection[herbIndex]->getXPosition() << " Y: " << herbivoresCollection[herbIndex]->getYPosition() << endl;
-        cout << "Life Time: " << herbivoresCollection[herbIndex]->getLifeTime() << " max life time: " << herbivoresCollection[herbIndex]->getMaxLifeTime() << endl;
-        cout << "Energy: " << herbivoresCollection[herbIndex]->getEnergy() << " / " << herbivoresCollection[herbIndex]->getMaxEnergy() << endl;
-        cout << "Fullness: " << herbivoresCollection[herbIndex]->getFullness() << " / " << herbivoresCollection[herbIndex]->getMaxFullness() << endl;
         herbivoresCollection[herbIndex]->thisTurn(areaMap, reproductionPeriod,  partnerPosition, consumedSubjectPosition, childPosition);
         if (herbivoresCollection[herbIndex]->isToDelete()) {
             deleteHerbivore(herbIndex);
@@ -193,9 +187,7 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime,
         consumedSubjectPosition.second = -1;
         childPosition.first = -1;
         childPosition.second = -1;
-        cout << endl;
     }
-    cout << "###########################################" << endl;
 }
 
 //getters
