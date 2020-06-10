@@ -8,7 +8,7 @@
 
 typedef std::pair<int, int> Coordinates;
 
-std::vector<float> countDistancesFromTarget(Coordinates targetPosition, std::vector<Coordinates> freePositions);
+Coordinates countDistancesFromTarget(Coordinates targetPosition, std::vector<Coordinates> freePositions, bool Minimalize);
 //bool isVisibleForAnimal(Coordinates animalPosition, Coordinates anotherPosition);
 
 extern int AREA_SIZE;

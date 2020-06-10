@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_SUITE(test_suite_collection)
         int n = 11; 
         for(int i = 0; i<n; i++)
         {
-            pom = factory.create(PREDATOR, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
+            pom = factory.create(PREDATOR, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
             collection.push(dynamic_cast<Predator*>(pom));
         }
         BOOST_CHECK_EQUAL(collection.getPredatorsNumber(), n);
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_SUITE(test_suite_collection)
         int m = 24; 
         for(int i = 0; i<m; i++)
         {
-            pom = factory.create(TYPICAL_PLANT, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
+            pom = factory.create(TYPICAL_PLANT, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
             collection.push(dynamic_cast<Plant*>(pom));
         }
         BOOST_CHECK_EQUAL(collection.getPredatorsNumber(), n);
@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_SUITE(test_suite_collection)
         int n = 7; 
         for(int i = 0; i<n; i++)
         {
-            pom = factory.create(PREDATOR, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
+            pom = factory.create(PREDATOR, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
             collection.push(dynamic_cast<Predator*>(pom));
         }
         BOOST_CHECK_EQUAL(collection.getPredatorsNumber(), n);

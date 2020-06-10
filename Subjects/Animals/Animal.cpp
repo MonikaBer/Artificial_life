@@ -147,15 +147,15 @@ bool Animal::oneLeapMove(AreaMap &areaMap, Coordinates targetPosition, Target ta
         int randIndex = rand() % freePositions.size();  // rand new position to choose
         this->position = freePositions[randIndex];
     } else {
-        vector<float> distances = countDistancesFromTarget(targetPosition, freePositions);
-        float desiredDistance = -1.0;
+        Coordinates nextPos;
         if (target == PARTNER || target == FOOD) {
-            desiredDistance = *min_element(distances.begin(), distances.end());
+            nextPos = countDistancesFromTarget(targetPosition, freePositions, true);
         } else if (target == ESCAPE) {
-            desiredDistance = *max_element(distances.begin(), distances.end());
+            nextPos = countDistancesFromTarget(targetPosition, freePositions, false);
         }
-        int selectedPosition = *find(distances.begin(), distances.end(), desiredDistance);
-        this->position = freePositions[selectedPosition];
+        //int selectedPosition = *find(distances.begin(), distances.end(), desiredDistance);
+        //cout << "SelectedPosition: " << selectedPosition << endl;
+        this->position = nextPos;
     }
 
     //change animal position (in areaMap too):
