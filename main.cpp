@@ -71,6 +71,14 @@ int main(int argc, char *argv[])
                 {
                     collection.getSubjectInfoFromPosition(make_pair(mouseX/AREA_SIZE, mouseY/AREA_SIZE));
                 }
+                if(ev.type == SDL_KEYDOWN)
+                {
+                    if(ev.key.keysym.sym == SDLK_i)
+                    {
+                        cout << "Number of Herbivores: " << collection.getHerbivoresNumber() << endl;
+                        cout << "Number of Predators: " << collection.getPredatorsNumber() << endl << endl;
+                    }
+                }
             }
 		}
         if (!simulationPaused){
