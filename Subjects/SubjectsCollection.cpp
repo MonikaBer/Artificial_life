@@ -107,17 +107,6 @@ void SubjectsCollection::deleteHerbivore(Coordinates herbPosition) {
     areaMap.erase(it);
 }
 
-//void SubjectsCollection::deletePlant(int plantIndex) {
-//    Coordinates plantPosition = make_pair(plantsCollection[plantIndex]->getXPosition(),
-//                                         plantsCollection[plantIndex]->getYPosition());
-//    //delete from collection
-//    plantsCollection.erase(plantsCollection.begin() + plantIndex);
-//    map<Coordinates, Subject*>::iterator it = areaMap.find(plantPosition);
-    //   delete (*it).second;
-    //   delete from map
-//    areaMap.erase(it);
-//}
-
 void SubjectsCollection::deletePlant(Coordinates plantPosition) {
     auto it = areaMap.find(plantPosition);
     //delete from collection
@@ -153,6 +142,7 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime,
         if (childPosition.first != -1 && childPosition.second != -1) {
             //add child to areaMap and to predatorsCollection
             auto *predatorChild = new Predator(childPosition.first, childPosition.second, maxLifeTime, viewSize);
+            predatorChild->setFlagAfterReproduction();
             parent1 = areaMap.find(predatorsCollection[predIndex]->getPosition());
             parent2 = areaMap.find(partnerPosition);
             predatorChild->mixAttributes(dynamic_cast<Animal*>(parent1->second), dynamic_cast<Animal*>(parent2->second));
@@ -179,6 +169,7 @@ void SubjectsCollection::subjectsRound(bool reproductionPeriod, int maxLifeTime,
         if (childPosition.first != -1 && childPosition.second != -1) {
             //add child to areaMap and to herbivoresCollection
             auto *herbivoreChild = new Herbivore(childPosition.first, childPosition.second, maxLifeTime, viewSize);
+            herbivoreChild->setFlagAfterReproduction();
             this->push(herbivoreChild);
         }
         partnerPosition.first = -1;

@@ -50,34 +50,25 @@ class Animal : public Subject {
         Coordinates changeDefaultTarget(Coordinates actualTarget);
         int countChildAttribute(int firstParentAttr, int secondParentAttr) const;
         bool isMutation();
-        void setChildMaxEnergy(int newMaxEnergy);
-        void setChildMaxFullness(int newMaxFullness);
-        void setChildVelocity(int newVelocity);
-        void setChildDigestionRate(int newDigestionRate);
         bool isVisibleForAnimal(Coordinates anotherPosition);
         bool isEncountered(Coordinates position);
 
         //getters
         int getEnergy() const;
         int getFullness() const; 
-        int getLifeTime() const;
         int getVelocity() const;
         int getDigestionRate() const;
         int getMaxEnergy() const;
         int getMaxFullness() const;
-        int getMaxLifeTime() const;
-        int getViewSize() const;
 
         //setters
         void setFullness(int newFullness);
-        // void setLifeTime(int newLifeTme);
         void setEnergy(int newEnergy);
         void setVelocity(int newVelocity);
         void setDigestionRate(int newDigestionRate);
         void setMaxEnergy(int newMaxEnergy);
-        void setMaxFullness(int newMaxFullness); 
-        // void setMaxLifeTime(int newMaxLifeTime);
-        // void setViewSize(int newViewSize);
+        void setMaxFullness(int newMaxFullness);
+        void setFlagAfterReproduction();
         void printInfo();
 
         virtual bool lookAround(AreaMap &areaMap, Coordinates &targetPosition, Target &target,

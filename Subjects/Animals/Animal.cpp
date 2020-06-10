@@ -256,38 +256,6 @@ bool Animal::isMutation() {
     return rand() % AnimalConstants::MUTATIONS_FREQUENCY == AnimalConstants::MUTATION_OCCURRING_CONDITION;
 }
 
-void Animal::setChildMaxEnergy(int newMaxEnergy) {
-    if (isMutation()) {                         //mutation occurred
-        maxEnergy = generateMaxEnergy();
-    } else {                                    // no mutation
-        maxEnergy = newMaxEnergy;
-    }
-}
-
-void Animal::setChildMaxFullness(int newMaxFullness) {
-    if (isMutation()) {                         //mutation occurred
-        maxFullness = generateMaxFullness();
-    } else {                                    // no mutation
-        maxFullness = newMaxFullness;
-    }
-}
-
-void Animal::setChildVelocity(int newVelocity) {
-    if (isMutation()) {                         //mutation occurred
-        velocity = generateVelocity();
-    } else {                                    // no mutation
-        velocity = newVelocity;
-    }
-}
-
-void Animal::setChildDigestionRate(int newDigestionRate) {
-    if (isMutation()) {                                 //mutation occurred
-        digestionRate = generateDigestionRate();
-    } else {                                            // no mutation
-        digestionRate = newDigestionRate;
-    }
-}
-
 bool Animal::isVisibleForAnimal(Coordinates anotherPosition) {
     return anotherPosition.first >= this->position.first - (this->viewSize / 2.0) &&
            anotherPosition.first <= this->position.first + (this->viewSize / 2.0) &&
@@ -305,13 +273,10 @@ bool Animal::isEncountered(Coordinates position) {
 //getters
 int Animal::getEnergy() const { return this->energy; }
 int Animal::getFullness() const { return this->fullness; }
-int Animal::getLifeTime() const { return this->lifeTime; }
 int Animal::getVelocity() const { return this->velocity; }
 int Animal::getDigestionRate() const { return this->digestionRate; }
 int Animal::getMaxEnergy() const { return this->maxEnergy; }
 int Animal::getMaxFullness() const { return this->maxFullness; }
-int Animal::getMaxLifeTime() const { return this->maxLifeTime; }
-int Animal::getViewSize() const { return this->viewSize; }
 
 //setters
 void Animal::setFullness(int newFullness) { fullness = newFullness; }
@@ -321,8 +286,8 @@ void Animal::setVelocity(int newVelocity) { velocity = newVelocity; }
 void Animal::setDigestionRate(int newDigestionRate) { digestionRate = newDigestionRate; }
 void Animal::setMaxEnergy(int newMaxEnergy) { maxEnergy = newMaxEnergy; }
 void Animal::setMaxFullness(int newMaxFullness) { maxFullness = newMaxFullness; }
-//void Animal::setMaxLifeTime(int newMaxLifeTime) { maxLifeTime = newMaxLifeTime; }
-//void Animal::setViewSize(int newViewSize) { viewSize = newViewSize; }
+void Animal::setFlagAfterReproduction() { afterReproduction = true; }
+
 
 void Animal::printInfo()
 {
