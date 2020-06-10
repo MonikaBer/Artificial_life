@@ -23,8 +23,8 @@ BOOST_AUTO_TEST_SUITE(test_suite_factory)
         SubjectsFactory &factory = SubjectsFactory::getInstance();
         Subject *tPred = factory.create(PREDATOR, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
         BOOST_CHECK_EQUAL(tPred->getType(), PREDATOR);
-        BOOST_CHECK_EQUAL(tPred->getXPosition()%AREA_SIZE, 0);
-        BOOST_CHECK_EQUAL(tPred->getYPosition()%AREA_SIZE, 0);
+        BOOST_CHECK(tPred->getXPosition()>=0 && tPred->getXPosition()<=WINDOW_WIDTH/AREA_SIZE);
+        BOOST_CHECK(tPred->getYPosition()>=0 && tPred->getYPosition()<=WINDOW_HEIGHT/AREA_SIZE);
         int predEnergy = static_cast<Animal*>(tPred)->getEnergy();
         int predMaxEnergy = static_cast<Animal*>(tPred)->getMaxEnergy();
         BOOST_CHECK_EQUAL(predEnergy, predMaxEnergy);
@@ -35,8 +35,8 @@ BOOST_AUTO_TEST_SUITE(test_suite_factory)
         SubjectsFactory &factory = SubjectsFactory::getInstance();
         Subject *tHerb = factory.create(HERBIVORE, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
         BOOST_CHECK_EQUAL(tHerb->getType(), HERBIVORE);
-        BOOST_CHECK_EQUAL(tHerb->getXPosition()%AREA_SIZE, 0);
-        BOOST_CHECK_EQUAL(tHerb->getYPosition()%AREA_SIZE, 0);
+        BOOST_CHECK(tHerb->getXPosition()>=0 && tHerb->getXPosition()<=WINDOW_WIDTH/AREA_SIZE);
+        BOOST_CHECK(tHerb->getYPosition()>=0 && tHerb->getYPosition()<=WINDOW_HEIGHT/AREA_SIZE);
         int herbEnergy = static_cast<Animal*>(tHerb)->getEnergy();
         int herbMaxEnergy = static_cast<Animal*>(tHerb)->getMaxEnergy();
         BOOST_CHECK_EQUAL(herbEnergy, herbMaxEnergy);
@@ -47,8 +47,8 @@ BOOST_AUTO_TEST_SUITE(test_suite_factory)
         SubjectsFactory &factory = SubjectsFactory::getInstance();
         Subject *tPlant = factory.create(TYPICAL_PLANT, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);
         BOOST_CHECK_EQUAL(tPlant->getType(), TYPICAL_PLANT);
-        BOOST_CHECK_EQUAL(tPlant->getXPosition()%AREA_SIZE, 0);
-        BOOST_CHECK_EQUAL(tPlant->getYPosition()%AREA_SIZE, 0);
+        BOOST_CHECK(tPlant->getXPosition()>=0 && tPlant->getXPosition()<WINDOW_WIDTH/AREA_SIZE);
+        BOOST_CHECK(tPlant->getYPosition()>=0 && tPlant->getYPosition()<WINDOW_HEIGHT/AREA_SIZE);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

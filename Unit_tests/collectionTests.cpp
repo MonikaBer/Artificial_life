@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_SUITE(test_suite_collection)
         BOOST_CHECK_EQUAL(collection.getPredatorsNumber(), n);
         BOOST_CHECK_EQUAL(collection.getPlantsNumber(), NULL);
         //check for plants:
-        int m = 24; 
+        int m = 12; 
         for(int i = 0; i<m; i++)
         {
             pom = factory.create(TYPICAL_PLANT, WINDOW_WIDTH/AREA_SIZE, WINDOW_HEIGHT/AREA_SIZE, MAX_LIFE_TIME, VIEW_SIZE);

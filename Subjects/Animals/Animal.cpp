@@ -187,7 +187,7 @@ void Animal::updateParameters (int leapsNumber) {  //update fullness, energy and
     fullness -= ((float)digestionRate / AnimalConstants::NUMBER_OF_PERCENTS) * maxFullness;
     if (fullness < AnimalConstants::ZERO_FULLNESS)
         fullness = AnimalConstants::ZERO_FULLNESS;
-    energy -= leapsNumber;
+    energy -= AnimalConstants::ENERGY_LOST;
     if (energy < AnimalConstants::ZERO_ENERGY)
         energy = AnimalConstants::ZERO_ENERGY;
     lifeTime++;
@@ -280,7 +280,7 @@ int Animal::getMaxFullness() const { return this->maxFullness; }
 
 //setters
 void Animal::setFullness(int newFullness) { fullness = newFullness; }
-void Animal::setReproductionFlag(bool afterReproduction){this->afterReproduction = afterReproduction};
+void Animal::setReproductionFlag(bool afterReproduction){this->afterReproduction = afterReproduction;}
 //void Animal::setLifeTime(int newLifeTme) { lifeTime = newLifeTime; }
 void Animal::setEnergy(int newEnergy) { energy = newEnergy; }
 void Animal::setVelocity(int newVelocity) { velocity = newVelocity; }
